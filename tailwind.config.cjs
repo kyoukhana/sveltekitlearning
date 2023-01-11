@@ -2,10 +2,10 @@
 module.exports = {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
-		fontfamily: {
-		 sanSerif:['Source Sans Pro', 'sans-serif'],
-		 mono:['Source Code Pro','monospace'],
-		 handwriting:['Kalam','cursive']
+		fontFamily: {
+			sansSerif: ['Source Sans Pro', 'sans-serif'],
+			mono: ['Source Code Pro', 'monospace'],
+			handwriting: ['Kalam', 'cursive']
 		},
 		extend: {
 			colors: {
