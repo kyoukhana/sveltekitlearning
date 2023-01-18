@@ -1,9 +1,15 @@
 <script lang="ts">
+	import {invoices, loadInvoices} from '$lib/stores/InvoiceStore';
+	import {onMount} from 'svelte'
 	import CircledAmount from '$lib/components/CircledAmount.svelte';
 	import ThreeDots from '$lib/components/icon/ThreeDots.svelte';
 	import View from '$lib/components/icon/View.svelte';
 	import Search from '$lib/components/Search.svelte';
 	import Tag from '$lib/components/Tag.svelte';
+
+	onMount(()=>{
+		loadInvoices($invoices);	
+	})	
 </script>
 
 <svelte:head>
