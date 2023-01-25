@@ -1,21 +1,37 @@
 <script lang="ts">
 	import ThreeDots from '$lib/components/icon/ThreeDots.svelte';
 	import View from '$lib/components/icon/View.svelte';
-    import Tag from '$lib/components/Tag.svelte';
-	import { sumLineItems, centsToDollars} from '$lib/utils/moneyHelpers';
+	import Tag from '$lib/components/Tag.svelte';
+	import { convertDate, isLate } from '$lib/utils/dateHelpers';
+	import { sumLineItems, centsToDollars } from '$lib/utils/moneyHelpers';
 
+	export let invoice: Invoice;
 
-    export let invoice: Invoice;
+	const getInvoiceLabel = () => {
+		if (invoice.invoiceStatus === 'draft') {
+			return 'draft';
+		} else if (invoice.invoiceStatus === 'sent' && !isLate(invoice.dueDate)) {
+			return 'sent';
+		} else if (invoice.invoiceStatus === 'sent' && isLate(invoice.dueDate)) {
+			return 'late';
+		} else if (invoice.invoiceStatus === 'paid') {
+			return 'paid';
+		}
+	};
 </script>
 
 <section
 	class="invoice-table invoice-row items-center rounded-lg bg-white py-3 shadow-tableRow lg:py-6"
 >
-	<div class="status"><Tag className="ml-auto lg:ml-0" label="{invoice.invoiceStatus}" /></div>
-	<div class="dueDate lg:text text-sm">{invoice.dueDate}</div>
+	<div class="status"><Tag className="ml-auto lg:ml-0" label={getInvoiceLabel()} /></div>
+	<div class="dueDate lg:text text-sm">{convertDate(invoice.dueDate)}</div>
 	<div class="invoiceNumber lg:text text-sm">{invoice.invoiceNumber}</div>
-	<div class="clientName text-base font-bold lg:text-xl whitespace-nowrap truncate">{invoice.client.name}</div>
-	<div class="amount lg:text text-right font-mono text-sm font-bold">${centsToDollars(sumLineItems(invoice.lineItems))}</div>
+	<div class="clientName truncate whitespace-nowrap text-base font-bold lg:text-xl">
+		{invoice.client.name}
+	</div>
+	<div class="amount lg:text text-right font-mono text-sm font-bold">
+		${centsToDollars(sumLineItems(invoice.lineItems))}
+	</div>
 	<div class="center viewButton lg:text hidden text-sm lg:block">
 		<a href="#blank" class="text-pastelPurple hover:text-daisyBush"><View /></a>
 	</div>
@@ -25,10 +41,6 @@
 </section>
 
 <style lang="postcss">
-	.table-header h3 {
-		@apply text-xl font-black leading-snug;
-	}
-
 	.invoice-row {
 		grid-template-areas:
 			'invoiceNumber invoiceNumber'
