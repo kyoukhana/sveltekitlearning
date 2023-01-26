@@ -4,7 +4,7 @@
 	import CircledAmount from '$lib/components/CircledAmount.svelte';
 
 	import Search from '$lib/components/Search.svelte';
-	import Invitation from './invoiceRow.svelte'
+	import Invitation from './invoiceRow.svelte';
 	import InvoiceRow from './invoiceRow.svelte';
 	import { centsToDollars, sumInvoices } from '$lib/utils/moneyHelpers';
 
@@ -49,9 +49,11 @@
 	</section>
 
 	<!-- Invoices -->
-	{#each $invoices as invoice}
-		<InvoiceRow {invoice}/>
-	{/each}
+	<section class="flex flex-col-reverse">
+		{#each $invoices as invoice}
+			<InvoiceRow {invoice} />
+		{/each}
+	</section>
 </section>
 
 <CircledAmount label="Total" amount={`$${centsToDollars(sumInvoices($invoices))}`} />
