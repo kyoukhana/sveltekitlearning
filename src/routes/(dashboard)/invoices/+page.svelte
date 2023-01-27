@@ -9,6 +9,7 @@
 	import { centsToDollars, sumInvoices } from '$lib/utils/moneyHelpers';
 	import BlankState from './BlankState.svelte';
 	import InvoiceRowHeader from './InvoiceRowHeader.svelte';
+	import Portal from '$lib/components/Portal.svelte';
 
 	onMount(() => {
 		loadInvoices($invoices);
@@ -25,11 +26,11 @@
 	class="md:gap-7-4 mb-7 flex flex-col-reverse items-start justify-between gap-y-6 md:flex-row md:items-center lg:mb-16"
 >
 	<!-- Search Field-->
-	{#if $invoices.length >0}
-	<Search />
+	{#if $invoices.length > 0}
+		<Search />
 	{:else}
-	<!--Empty Div so keeps flexbox intact-->
-	<div></div>	
+		<!--Empty Div so keeps flexbox intact-->
+		<div />
 	{/if}
 	<!--Nav invoice button-->
 
@@ -43,8 +44,9 @@
 
 <!-- List of Invoices-->
 <section>
-	<!--Header-->
-
+	<Portal>
+		<div>Invoice Form:</div>
+	</Portal>
 
 	<!-- Invoices -->
 
@@ -53,7 +55,7 @@
 	{:else if $invoices.length <= 0}
 		<BlankState />
 	{:else}
-	 <InvoiceRowHeader className="text-daisyBush" />
+		<InvoiceRowHeader className="text-daisyBush" />
 		<section class="flex flex-col-reverse">
 			{#each $invoices as invoice}
 				<InvoiceRow {invoice} />
@@ -62,4 +64,3 @@
 		<CircledAmount label="Total" amount={`$${centsToDollars(sumInvoices($invoices))}`} />
 	{/if}
 </section>
-
