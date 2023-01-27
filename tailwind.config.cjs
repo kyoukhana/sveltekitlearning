@@ -9,21 +9,22 @@ module.exports = {
 		},
 		extend: {
 			colors: {
-				lavenderIndigo: '#8657e1',
+				blueGem: '#3813a0',
+				caribbeanGreen: '#00ca9e',
+				caribbeanGreen: '#1CC6A0',
 				daisyBush: '#4714a5',
+				fog: '#decaec',
+				gallery: '#efeaf2',
 				goldenFizz: '#feff40',
-				whisper: '#f9f4f9',
+				lavenderIndigo: '#8657e1',
+				monsoon: '#777878',
 				pastelPurple: '#b2a1bb',
+				prim: '#ede6ef',
 				purple: '#7209b7',
 				robinEggBlue: '#00e9c0',
-				blueGem: '#3813a0',
-				caribbeanGreen: '#1CC6A0',
 				scarlet: '#f72f45',
-				monsoon: '#777878',
 				silver: '#c0c0c0',
-				gallery: '#efeaf2',
-				caribbeanGreen: '#00ca9e',
-				fog: '#decaec',
+				whisper: '#f9f4f9',
 			  },
 			  gridTemplateColumns:{
 				'invoiceTable':'100px 100px 60px 1fr 116px 32px 32px',
@@ -42,6 +43,8 @@ module.exports = {
 				'1':'1px'
 			  },
 			  backgroundImage:{
+				arrowRightUp: "url('/images/arrow-right-up.svg')",
+				arrowLeftUp: "url('/images/arrow-left-up.svg')",
 				circle:"url('/images/circle.svg')"
 			  }
 		}
