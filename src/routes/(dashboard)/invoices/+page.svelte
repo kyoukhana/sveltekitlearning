@@ -10,8 +10,10 @@
 	import BlankState from './BlankState.svelte';
 	import InvoiceRowHeader from './InvoiceRowHeader.svelte';
 	import Button from '$lib/components/Button.svelte';
+	import SlidePanel from '$lib/components/SlidePanel.svelte';
 
-	
+	let isInvoiceFormShowing: boolean = false;
+
 	onMount(() => {
 		loadInvoices($invoices);
 		console.log('----------------');
@@ -36,15 +38,18 @@
 	<!--Nav invoice button-->
 
 	<section>
-     <!--BTN COM-->
-	 <Button label="+ Invoice" onClick={()=>{}}></Button>
+		<!--BTN COM-->
+		<Button
+			label="+ Invoice"
+			onClick={() => {
+				isInvoiceFormShowing = true;
+			}}
+		/>
 	</section>
 </section>
 
 <!-- List of Invoices-->
 <section>
-
-
 	<!-- Invoices -->
 
 	{#if $invoices === null}
@@ -62,3 +67,11 @@
 	{/if}
 </section>
 
+<!--Slide-->
+{#if isInvoiceFormShowing}
+	<SlidePanel
+		on:closePanel={() => {
+			isInvoiceFormShowing = false;
+		}}>Yolo</SlidePanel
+	>
+{/if}

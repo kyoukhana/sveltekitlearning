@@ -31,15 +31,17 @@ module.exports = {
 				'invoiceTableMobile':'1fr 90px'	
 			  },
 			  zIndex:{
-				modal:999,
-				overlay:998,
-				navBarToggle:91,
-				navBar:90,
+				modal: 999,
+				slidePanel: 998,
+				overlay: 997,
+				navBarToggle: 91,
+				navBar: 90,
 			  },
 			  boxShadow:{
 				colored: '0px 7px 16px rgba(127, 91, 220, 0.002)',
 				coloredHover: '0px 16px 25px rgba(127, 91, 220, 0.3)',
-				tableRow:'0px 0px 6px rgba(0, 0, 0, 0.16)'
+				tableRow:'0px 0px 6px rgba(0, 0, 0, 0.16)',
+				slidePanel: '-4px 0px 44px rgba(0, 0, 0, 0.25)',
 			  },
 			  borderWidth:{
 				'1':'1px'
