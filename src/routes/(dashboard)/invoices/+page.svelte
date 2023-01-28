@@ -9,8 +9,9 @@
 	import { centsToDollars, sumInvoices } from '$lib/utils/moneyHelpers';
 	import BlankState from './BlankState.svelte';
 	import InvoiceRowHeader from './InvoiceRowHeader.svelte';
-	import Portal from '$lib/components/Portal.svelte';
+	import Button from '$lib/components/Button.svelte';
 
+	
 	onMount(() => {
 		loadInvoices($invoices);
 		console.log('----------------');
@@ -35,18 +36,14 @@
 	<!--Nav invoice button-->
 
 	<section>
-		<button
-			class="font-sanSerif relative translate-y-0 whitespace-nowrap rounded-lg bg-lavenderIndigo px-5 py-2 text-base font-black text-white shadow-colored transition-all hover:-translate-y-2 hover:shadow-coloredHover lg:px-10 lg:py-3 lg:text-xl"
-			>+ Invoices</button
-		>
+     <!--BTN COM-->
+	 <Button label="+ Invoice" onClick={()=>{}}></Button>
 	</section>
 </section>
 
 <!-- List of Invoices-->
 <section>
-	<Portal>
-		<div>Invoice Form:</div>
-	</Portal>
+
 
 	<!-- Invoices -->
 
@@ -64,3 +61,4 @@
 		<CircledAmount label="Total" amount={`$${centsToDollars(sumInvoices($invoices))}`} />
 	{/if}
 </section>
+
