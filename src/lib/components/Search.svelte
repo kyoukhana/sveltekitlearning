@@ -8,7 +8,7 @@
 		type="text"
 		name="search"
 		placeholder="Search by keyword"
-		class="w-full lg:w-72  md:w-[14rem] border-b-2 border-dashed border-b-pastelPurple bg-transparent font-sansSerif text-base lg:text-xl text-black outline-none focus:border-solid focus:border-b-lavenderIndigo"
+		class="search w-full lg:w-72  md:w-[14rem] border-b-2 border-dashed border-b-pastelPurple bg-transparent font-sansSerif text-base lg:text-xl text-black outline-none focus:border-solid focus:border-b-lavenderIndigo"
 	/>
 	<button class="font-sansSerif text-lg lg:text-xl font-black text-pastelPurple">Search</button>
 </section>
