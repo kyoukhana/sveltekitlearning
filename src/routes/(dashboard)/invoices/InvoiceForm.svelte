@@ -1,6 +1,16 @@
 <script lang="ts">
+	import LineItemRows from './LineItemRows.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import Trash from '$lib/components/icon/Trash.svelte';
+
+	const blankLineItem = [
+		{
+			id: '1',
+			description: '',
+			quantity:0,
+			amount:0
+		}
+	];
 </script>
 
 <h2 class="mb-7 font-sansSerif text-3xl font-bold text-daisyBush">Add an Invoice</h2>
@@ -37,13 +47,15 @@
 	</section>
 
 	<!--subject-->
-	<section class="filed col-span-6">
+	<section class="field col-span-6">
 		<label for="subject">Subject</label>
 		<input type="text" name="subject" />
 	</section>
 
 	<!----Line Items-->
-	<section class="field col-span-6">Line Items</section>
+	<section class="field col-span-6">
+		<LineItemRows lineItems={blankLineItem}/>
+	</section>
 
 	<!--Notes-->
 	<section class="field col-span-6">
@@ -67,7 +79,7 @@
 
 	<section class="field col-span-2">
 		<Button
-			style="textOnly"
+			style="textOnlyDestructive"
 			label="Delete"
 			isAnimated={false}
 			onClick={() => {}}
@@ -75,7 +87,7 @@
 		/>
 	</section>
 
-	<section class="field col-span-4 gap-x-5 flex justify-end">
+	<section class="field col-span-4 flex justify-end gap-x-5">
 		<Button style="secondary" label="Cancel" isAnimated={false} onClick={() => {}} />
 		<Button label="Save" isAnimated={false} onClick={() => {}} />
 	</section>
