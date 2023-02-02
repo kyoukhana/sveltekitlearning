@@ -1,5 +1,8 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
 	import Trash from '$lib/components/icon/Trash.svelte';
+	export let lineItem: LineItem;
+	let dispatch = createEventDispatcher();
 </script>
 
 <section class="invoice-line-item border-b2 border-fog py-2">
@@ -20,8 +23,16 @@
 	</div>
 
 	<div>
-		<button class="center h-10 w-10 text-pastelPurple hover:text-lavenderIndigo"><Trash /></button>
+		<button
+			on:click|preventDefault={() => {
+				
+				dispatch('removeLineItem', lineItem.id);
+				console.log(lineItem.id);
+			}}
+			class="center h-10 w-10 text-pastelPurple hover:text-lavenderIndigo"><Trash /></button
+		>
 	</div>
+
 </section>
 
 <style lang="postcss">
@@ -38,9 +49,8 @@
 		@apply font-mono text-base;
 	}
 
-    input[type='number']:focus,
-    input[type='text']:focus {
+	input[type='number']:focus,
+	input[type='text']:focus {
 		@apply border-solid border-lavenderIndigo outline-none;
 	}
-
 </style>
