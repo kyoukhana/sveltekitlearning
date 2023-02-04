@@ -1,18 +1,29 @@
 <script lang="ts">
-	import {createEventDispatcher} from 'svelte';
+	import { createEventDispatcher } from 'svelte';
 	import Button from '$lib/components/Button.svelte';
 	import CircledAmount from '$lib/components/CircledAmount.svelte';
 	import LineItemRow from './LineItemRow.svelte';
-	import { centsToDollars, sumLineItems } from '$lib/utils/moneyHelpers';
-	
-	let subtotal:string ='0.00';
+	import { centsToDollars, sumLineItems, twoDecimals } from '$lib/utils/moneyHelpers';
+
+	let subtotal: string = '0.00';
+	let discount: number;
+	let total: string = '0.00';
+	let discountedAmount: string = '0.00';
 
 	export let lineItems: LineItem[] | undefined = undefined;
-  	let dispatch = createEventDispatcher();
+	let dispatch = createEventDispatcher();
 
-	/*To make something Reactive */
-	$: subtotal = centsToDollars(sumLineItems(lineItems));
+	/*To make something Reactive use $ */
+	$: if (sumLineItems(lineItems) > 0) {
+		subtotal = centsToDollars(sumLineItems(lineItems));
+	}
 
+	/*Caculate Discount amount */
+	$: if (subtotal && discount) {
+		discountedAmount = centsToDollars(sumLineItems(lineItems) * (discount / 100));
+	}
+
+	$:total = twoDecimals(parseInt(subtotal) - parseInt(discountedAmount));
 </script>
 
 <section class="invoice-line-item border-b-2 border-daisyBush pb-2">
@@ -23,15 +34,22 @@
 </section>
 
 {#if lineItems}
-  {#each lineItems as lineItem, index}
-    <LineItemRow {lineItem} on:removeLineItem canDelete={index>0}/>
-  {/each}
+	{#each lineItems as lineItem, index}
+		<LineItemRow {lineItem} on:removeLineItem canDelete={index > 0} on:updateLineItem />
+	{/each}
 {/if}
 
 <!--Start Invoice Line Item-->
 <div class="invoice-line-item">
 	<div class="col-span-2">
-		<Button label="+ Line Item" onClick={() => { dispatch('addLineItem')}} style="textOnly" isAnimated={false} />
+		<Button
+			label="+ Line Item"
+			onClick={() => {
+				dispatch('addLineItem');
+			}}
+			style="textOnly"
+			isAnimated={false}
+		/>
 	</div>
 
 	<div class="py-5 text-right font-bold text-monsoon">Subtotal</div>
@@ -48,15 +66,16 @@
 			name="discount"
 			min="0"
 			max="100"
+			bind:value={discount}
 		/>
 		<span class="text-mono absolute right-0 top-2">%</span>
 	</div>
-	<div class="py-5 text-right font-mono">$10.00</div>
+	<div class="py-5 text-right font-mono">${discountedAmount}</div>
 </div>
 
 <div class="invoice-line-item">
 	<div class="col-span-6">
-		<CircledAmount label="Total:" amount="$1,444.00" />
+		<CircledAmount label="Total:" amount="{`$${total}`}" />
 	</div>
 </div>
 

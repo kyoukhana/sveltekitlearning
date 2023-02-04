@@ -29,7 +29,10 @@
 			step="0.01"
 			min="0"
 			bind:value={unitPrice}
-			on:blur={() => (unitPrice = twoDecimals(Number(unitPrice)))}
+			on:blur={() => {
+				unitPrice = twoDecimals(Number(unitPrice));
+				dispatch('updateLineItem');
+			  }}
 		/>
 	</div>
 
@@ -40,6 +43,9 @@
 			name="quantity"
 			min="0"
 			bind:value={lineItem.quantity}
+			on:blur={() => {
+				dispatch('updateLineItem');
+			  }}
 		/>
 	</div>
 
