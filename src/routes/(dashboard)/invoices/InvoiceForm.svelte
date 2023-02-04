@@ -1,8 +1,10 @@
 <script lang="ts">
+	import {slide} from 'svelte/transition';
 	import { v4 as uuidv4 } from 'uuid';
 	import LineItemRows from './LineItemRows.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import Trash from '$lib/components/Icon/Trash.svelte';
+    import {provinces} from '$lib/utils/provinces';
 
 	const blankLineItem = {
 		id: uuidv4(),
@@ -11,7 +13,9 @@
 		amount: 0
 	};
 
-	let lineItems: LineItem[] = [{...blankLineItem}];
+	let lineItems: LineItem[] = [{ ...blankLineItem }];
+	let isNewClient: boolean = false;
+
 	const AddLineItem = () => {
 		lineItems = [...lineItems, { ...blankLineItem, id: uuidv4() }];
 	};
@@ -20,26 +24,47 @@
 		console.log('remove line item');
 	};
 
-	const UpdateLineItem= () =>{
-		lineItems=lineItems;
-	}
-
+	const UpdateLineItem = () => {
+		lineItems = lineItems;
+	};
 </script>
 
 <h2 class="mb-7 font-sansSerif text-3xl font-bold text-daisyBush">Add an Invoice</h2>
 
 <form class="grid grid-cols-6 gap-x-5">
-	<!--Client-->
-	<section class="field col-span-2">
-		<label for="client">Client</label>
-		<select name="client" id="client">
-			<option value="zeal">ZEAL</option>
-		</select>
-	</section>
-
-	<section class="field col-span-2 flex items-end gap-x-5">
-		<div class="text-base font-bold leading-[3.5rem] text-monsoon">or</div>
-		<Button label="+ Client" onClick={() => {}} style="outline" isAnimated={false} />
+	<!--new Client-->
+	<section class="field col-span-4">
+		{#if !isNewClient}
+			<label for="client">Client</label>
+			<div class="flex items-end gap-x-5">
+				<select name="client" id="client">
+					<option value="zeal">ZEAL</option>
+				</select>
+				<div class="text-base font-bold leading-[3.5rem] text-monsoon">or</div>
+				<Button
+					label="+ Client"
+					onClick={() => {
+						isNewClient = true;
+					}}
+					style="outline"
+					isAnimated={false}
+				/>
+			</div>
+		{:else}
+			<label for="client">Client</label>
+			<div class="flex items-end gap-x-5">
+				<input type="text" name="newClient" />
+				<div class="text-base font-bold leading-[3.5rem] text-monsoon">or</div>
+				<Button
+					label="Existing Client"
+					onClick={() => {
+						isNewClient = false;
+					}}
+					style="outline"
+					isAnimated={false}
+				/>
+			</div>
+		{/if}
 	</section>
 
 	<!--Invoice id-->
@@ -47,6 +72,41 @@
 		<label for="id">Invoice Id</label>
 		<input type="number" name="id" />
 	</section>
+
+	<!--Client information -->
+	{#if isNewClient}
+		<div class="field col-span-6 grid gap-x-5" transition:slide>
+			<div class="field col-span-6">
+				<label for="email">Client's Email</label>
+				<input type="email" name="email" id="email" />
+			</div>
+
+			<div class="field col-span-6">
+				<label for="street">Street</label>
+				<input type="text" name="street" id="street" />
+			</div>
+
+			<div class="field col-span-2">
+				<label for="city">City</label>
+				<input type="text" name="city" id="city" />
+			</div>
+
+			<div class="field col-span-2">
+				<label for="state">State</label>
+				<select name="state" id="state">
+					{#each provinces as province}
+					<option value="{province.value}">{province.name}</option>
+					{/each}
+				</select>
+			</div>
+
+			<div class="field col-span-2">
+				<label for="zip">Zip</label>
+				<input type="text" name="zip" id="zip" />
+			</div>
+		</div>
+	{/if}
+
 	<!--Due Date-->
 	<section class="field col-span-2">
 		<label for="dueDate">Due Date</label>
@@ -67,7 +127,12 @@
 
 	<!----Line Items-->
 	<section class="field col-span-6">
-		<LineItemRows {lineItems} on:addLineItem={AddLineItem} on:removeLineItem={RemoveLineItem} on:updateLineItem={UpdateLineItem} />
+		<LineItemRows
+			{lineItems}
+			on:addLineItem={AddLineItem}
+			on:removeLineItem={RemoveLineItem}
+			on:updateLineItem={UpdateLineItem}
+		/>
 	</section>
 
 	<!--Notes-->
