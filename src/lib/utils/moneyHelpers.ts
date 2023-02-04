@@ -42,6 +42,15 @@ export const addThousandSeparator = (myNum: string): string => {
 
 
 /**
+ * Takes a dollar amount and converts it to cents.
+ * @param {number} dollars
+ * @returns  {number}
+ */
+export const dollarsToCents = (dollars: number): number => {
+	return dollars * 100;
+  }
+
+/**
  * Takes all the invoices and finds the total
  * @param {Invoices} invoices 
  * @returns {number}

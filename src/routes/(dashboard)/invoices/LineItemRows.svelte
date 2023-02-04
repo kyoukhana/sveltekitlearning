@@ -3,9 +3,16 @@
 	import Button from '$lib/components/Button.svelte';
 	import CircledAmount from '$lib/components/CircledAmount.svelte';
 	import LineItemRow from './LineItemRow.svelte';
-	 
+	import { centsToDollars, sumLineItems } from '$lib/utils/moneyHelpers';
+	
+	let subtotal:string ='0.00';
+
 	export let lineItems: LineItem[] | undefined = undefined;
   	let dispatch = createEventDispatcher();
+
+	/*To make something Reactive */
+	$: subtotal = centsToDollars(sumLineItems(lineItems));
+
 </script>
 
 <section class="invoice-line-item border-b-2 border-daisyBush pb-2">
@@ -16,8 +23,8 @@
 </section>
 
 {#if lineItems}
-  {#each lineItems as lineItem}
-    <LineItemRow {lineItem} on:removeLineItem/>
+  {#each lineItems as lineItem, index}
+    <LineItemRow {lineItem} on:removeLineItem canDelete={index>0}/>
   {/each}
 {/if}
 
@@ -28,7 +35,7 @@
 	</div>
 
 	<div class="py-5 text-right font-bold text-monsoon">Subtotal</div>
-	<div class="py-5 text-right font-mono">$250.00</div>
+	<div class="py-5 text-right font-mono">${subtotal}</div>
 </div>
 <!--End Invoice Line Item-->
 
