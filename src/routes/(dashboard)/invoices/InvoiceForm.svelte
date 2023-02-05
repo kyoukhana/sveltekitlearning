@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { clients, loadClients } from '$lib/stores/ClientStore';
-	import {slide} from 'svelte/transition';
+	import { slide } from 'svelte/transition';
 	import { v4 as uuidv4 } from 'uuid';
 	import LineItemRows from './LineItemRows.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import Trash from '$lib/components/Icon/Trash.svelte';
-    import {provinces} from '$lib/utils/provinces';
+	import { provinces } from '$lib/utils/provinces';
 	import { onMount } from 'svelte';
+	import { today } from '$lib/utils/dateHelpers';
 
 	const blankLineItem = {
 		id: uuidv4(),
@@ -31,8 +32,8 @@
 	};
 
 	onMount(() => {
-    loadClients();
-  });
+		loadClients();
+	});
 </script>
 
 <h2 class="mb-7 font-sansSerif text-3xl font-bold text-daisyBush">Add an Invoice</h2>
@@ -45,7 +46,7 @@
 			<div class="flex items-end gap-x-5">
 				<select name="client" id="client">
 					{#each $clients as client}
-						<option value="{client.id}">{client.name}</option>
+						<option value={client.id}>{client.name}</option>
 					{/each}
 				</select>
 				<div class="text-base font-bold leading-[3.5rem] text-monsoon">or</div>
@@ -77,8 +78,8 @@
 
 	<!--Invoice id-->
 	<section class="field col-span-2">
-		<label for="id">Invoice Id</label>
-		<input type="number" name="id" />
+		<label for="invoiceNumber">Invoice Id</label>
+		<input type="number" name="invoiceNumber" required />
 	</section>
 
 	<!--Client information -->
@@ -103,7 +104,7 @@
 				<label for="state">State</label>
 				<select name="state" id="state">
 					{#each provinces as province}
-					<option value="{province.value}">{province.name}</option>
+						<option value={province.value}>{province.name}</option>
 					{/each}
 				</select>
 			</div>
@@ -118,13 +119,13 @@
 	<!--Due Date-->
 	<section class="field col-span-2">
 		<label for="dueDate">Due Date</label>
-		<input type="date" name="dueDate" />
+		<input type="date" name="dueDate" min={today} required />
 	</section>
 
 	<!--Issue Date-->
 	<section class="field col-span-2 col-start-5">
 		<label for="issueDate">Issue Date</label>
-		<input type="date" name="issueDate" />
+		<input type="date" name="issueDate" min={today} />
 	</section>
 
 	<!--subject-->
@@ -175,6 +176,9 @@
 
 	<section class="field col-span-4 flex justify-end gap-x-5">
 		<Button style="secondary" label="Cancel" isAnimated={false} onClick={() => {}} />
-		<Button label="Save" isAnimated={false} onClick={() => {}} />
+		<button
+			class="button hover:shadow-coloredHover; translate-y-0 bg-lavenderIndigo text-white shadow-colored transition-all hover:-translate-y-2"
+			type="submit">Save</button
+		>
 	</section>
 </form>

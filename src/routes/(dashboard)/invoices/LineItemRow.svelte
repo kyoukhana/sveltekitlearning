@@ -6,6 +6,8 @@
 	export let lineItem: LineItem;
 	export let canDelete: boolean = false;
 
+	export let isRequired: boolean = false;
+
 	let dispatch = createEventDispatcher();
 	let unitPrice: string = twoDecimals(lineItem.amount / lineItem.quantity);
 	let amount: string = twoDecimals(lineItem.amount);
@@ -18,7 +20,7 @@
 
 <section class="invoice-line-item border-b2 border-fog py-2">
 	<div>
-		<input class="line-item" type="text" name="description" bind:value={lineItem.description} />
+		<input class="line-item" type="text" name="description" bind:value={lineItem.description}  required={isRequired}/>
 	</div>
 
 	<div>
@@ -26,13 +28,14 @@
 			class="line-item text-right"
 			type="number"
 			name="unitPrice"
+			required={isRequired}
 			step="0.01"
 			min="0"
 			bind:value={unitPrice}
 			on:blur={() => {
 				unitPrice = twoDecimals(Number(unitPrice));
 				dispatch('updateLineItem');
-			  }}
+			}}
 		/>
 	</div>
 
@@ -41,11 +44,12 @@
 			class="line-item text-center"
 			type="number"
 			name="quantity"
+			required={isRequired}
 			min="0"
 			bind:value={lineItem.quantity}
 			on:blur={() => {
 				dispatch('updateLineItem');
-			  }}
+			}}
 		/>
 	</div>
 
@@ -61,16 +65,15 @@
 		/>
 	</div>
 	{#if canDelete}
-	<div>
-		
-		<button
-			on:click|preventDefault={() => {
-				dispatch('removeLineItem', lineItem.id);
-				console.log(lineItem.id);
-			}}
-			class="center h-10 w-10 text-pastelPurple hover:text-lavenderIndigo"><Trash /></button
-		>
-	</div>
+		<div>
+			<button
+				on:click|preventDefault={() => {
+					dispatch('removeLineItem', lineItem.id);
+					console.log(lineItem.id);
+				}}
+				class="center h-10 w-10 text-pastelPurple hover:text-lavenderIndigo"><Trash /></button
+			>
+		</div>
 	{/if}
 </section>
 
@@ -92,7 +95,6 @@
 	input[type='text']:focus {
 		@apply border-solid border-lavenderIndigo outline-none;
 	}
-
 
 	input[type='number']:disabled,
 	input[type='text']:disabled {
