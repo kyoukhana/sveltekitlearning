@@ -44,7 +44,8 @@
 		{#if !isNewClient}
 			<label for="client">Client</label>
 			<div class="flex items-end gap-x-5">
-				<select name="client" id="client">
+				<select name="client" id="client" required={!isNewClient}>
+					<option/>
 					{#each $clients as client}
 						<option value={client.id}>{client.name}</option>
 					{/each}
@@ -60,9 +61,9 @@
 				/>
 			</div>
 		{:else}
-			<label for="client">Client</label>
+			<label for="client">New Client</label>
 			<div class="flex items-end gap-x-5">
-				<input type="text" name="newClient" />
+				<input type="text" name="newClient" required={isNewClient}/>
 				<div class="text-base font-bold leading-[3.5rem] text-monsoon">or</div>
 				<Button
 					label="Existing Client"
@@ -87,7 +88,7 @@
 		<div class="field col-span-6 grid gap-x-5" transition:slide>
 			<div class="field col-span-6">
 				<label for="email">Client's Email</label>
-				<input type="email" name="email" id="email" />
+				<input type="email" name="email" id="email" required={isNewClient}/>
 			</div>
 
 			<div class="field col-span-6">
