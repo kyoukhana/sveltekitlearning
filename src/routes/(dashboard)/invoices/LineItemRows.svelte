@@ -6,7 +6,7 @@
 	import { centsToDollars, sumLineItems, twoDecimals } from '$lib/utils/moneyHelpers';
 
 	let subtotal: string = '0.00';
-	let discount: number;
+	export let discount: number = 0;
 	let total: string = '0.00';
 	let discountedAmount: string = '0.00';
 
@@ -23,7 +23,7 @@
 		discountedAmount = centsToDollars(sumLineItems(lineItems) * (discount / 100));
 	}
 
-	$:total = twoDecimals(parseInt(subtotal) - parseInt(discountedAmount));
+	$: total = twoDecimals(Number(subtotal) - Number(discountedAmount));
 </script>
 
 <section class="invoice-line-item border-b-2 border-daisyBush pb-2">
@@ -35,7 +35,13 @@
 
 {#if lineItems}
 	{#each lineItems as lineItem, index}
-		<LineItemRow {lineItem} on:removeLineItem canDelete={index > 0} on:updateLineItem  isRequired={index===0}/>
+		<LineItemRow
+			{lineItem}
+			on:removeLineItem
+			canDelete={index > 0}
+			on:updateLineItem
+			isRequired={index === 0}
+		/>
 	{/each}
 {/if}
 
@@ -75,7 +81,7 @@
 
 <div class="invoice-line-item">
 	<div class="col-span-6">
-		<CircledAmount label="Total:" amount="{`$${total}`}" />
+		<CircledAmount label="Total:" amount={`$${total}`} />
 	</div>
 </div>
 

@@ -9,17 +9,22 @@
 </script>
 
 <button
-	on:click|preventDefault={() => onClick()}
-	class="button"
-	class:primary={style === 'primary'}
-	class:secondary={style === 'secondary'}
-	class:destructive={style === 'destructive'}
-	class:outline={style === 'outline'}
-	class:textOnly={style === 'textOnly'}
-	class:textOnlyDestructive={style === 'textOnlyDestructive'}
-	class:isAnimated>
-     {#if iconLeft}<svelte:component this={iconLeft} class="mr-2" />{/if}
-     {#if iconRight}<svelte:component this={iconRight} class="ml-2" />{/if}{label}
+  on:click|preventDefault={() => onClick()}
+  class="button"
+  class:primary={style === 'primary'}
+  class:secondary={style === 'secondary'}
+  class:destructive={style === 'destructive'}
+  class:outline={style === 'outline'}
+  class:textOnly={style === 'textOnly'}
+  class:textOnlyDestructive={style === 'textOnlyDestructive'}
+  class:isAnimated>
+  {#if iconLeft}
+    <svelte:component this={iconLeft} class="mr-2" />
+  {/if}
+  {label}
+  {#if iconRight}
+    <svelte:component this={iconRight} class="ml-2" />
+  {/if}
 </button>
 
 <style lang="postcss">
