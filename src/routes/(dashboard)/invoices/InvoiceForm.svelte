@@ -8,7 +8,8 @@
 	import { provinces } from '$lib/utils/provinces';
 	import { onMount } from 'svelte';
 	import { today } from '$lib/utils/dateHelpers';
-	import { addInvoice } from '$lib/stores/InvoiceStore';
+	import { addInvoice, updateInvoice } from '$lib/stores/InvoiceStore';
+	import ConfirmDelete from './ConfirmDelete.svelte';
 
 	const blankLineItem = {
 		id: uuidv4(),
@@ -18,17 +19,23 @@
 	};
 
 	let isNewClient: boolean = false;
-	let invoice: Invoice = {
+
+	export let invoice: Invoice = {
 		client: {} as Client,
 		lineItems: [{ ...blankLineItem }] as LineItem[]
 	} as Invoice;
-	
+
 	let newClient: Partial<Client> = {} as Client;
+
+	export let formState: 'create' | 'edit' = 'create';
+
+	export let closePanel: () => void = () => {};
+	let isModalShowing = false;
 
 	const AddLineItem = () => {
 		invoice.lineItems = [...(invoice.lineItems as []), { ...blankLineItem, id: uuidv4() }];
 	};
-	const RemoveLineItem = (event:CustomEvent) => {
+	const RemoveLineItem = (event: CustomEvent) => {
 		invoice?.lineItems && invoice.lineItems.filter((item) => item.id !== event.detail);
 		console.log('remove line item');
 	};
@@ -43,15 +50,24 @@
 
 	const handleSubmit = () => {
 		console.log({ invoice, newClient });
-		if(isNewClient){
+		if (isNewClient) {
 			invoice.client = newClient;
 			addClient(newClient as Client);
 		}
-		addInvoice(invoice);
+
+		if (formState === 'create') {
+			addInvoice(invoice);
+		} else {
+			updateInvoice(invoice);
+		}
+
+		closePanel();
 	};
 </script>
 
-<h2 class="mb-7 font-sansSerif text-3xl font-bold text-daisyBush">Add an Invoice</h2>
+<h2 class="mb-7 font-sansSerif text-3xl font-bold text-daisyBush">
+	{#if formState === 'create'}Add{:else}Edit{/if} an Invoice
+</h2>
 
 <form class="grid grid-cols-6 gap-x-5" on:submit|preventDefault={handleSubmit}>
 	<!--new Client-->
@@ -59,10 +75,15 @@
 		{#if !isNewClient}
 			<label for="client">Client</label>
 			<div class="flex items-end gap-x-5">
-				<select name="client" id="client" required={!isNewClient} bind:value={invoice.client.id}  on:change={() => {
-					const selectedClient = $clients.find((client) => client.id === invoice.client.id);
-					invoice.client.name = selectedClient?.name !== undefined ? selectedClient.name : '';
-				  }}
+				<select
+					name="client"
+					id="client"
+					required={!isNewClient}
+					bind:value={invoice.client.id}
+					on:change={() => {
+						const selectedClient = $clients.find((client) => client.id === invoice.client.id);
+						invoice.client.name = selectedClient?.name !== undefined ? selectedClient.name : '';
+					}}
 				>
 					<option />
 					{#each $clients as client}
@@ -90,7 +111,7 @@
 					label="Existing Client"
 					onClick={() => {
 						isNewClient = false;
-						newClient={};
+						newClient = {};
 					}}
 					style="outline"
 					isAnimated={false}
@@ -195,20 +216,37 @@
 	<!--Buttons-->
 
 	<section class="field col-span-2">
-		<Button
-			style="textOnlyDestructive"
-			label="Delete"
-			isAnimated={false}
-			onClick={() => {}}
-			iconLeft={Trash}
-		/>
+		{#if formState === 'edit'}
+			<Button
+				style="textOnlyDestructive"
+				label="Delete"
+				isAnimated={false}
+				onClick={() => {isModalShowing=true;}}
+				iconLeft={Trash}
+			/>
+		{/if}
 	</section>
 
 	<section class="field col-span-4 flex justify-end gap-x-5">
-		<Button style="secondary" label="Cancel" isAnimated={false} onClick={() => {}} />
+		<Button
+			label="Cancel"
+			style="secondary"
+			isAnimated={false}
+			onClick={() => {
+				closePanel();
+			}}
+		/>
 		<button
 			class="button hover:shadow-coloredHover; translate-y-0 bg-lavenderIndigo text-white shadow-colored transition-all hover:-translate-y-2"
 			type="submit">Save</button
 		>
 	</section>
 </form>
+<ConfirmDelete
+  {invoice}
+  {isModalShowing}
+  on:close={() => {
+    isModalShowing = false;
+    closePanel();
+  }}
+/>

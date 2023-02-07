@@ -33,8 +33,8 @@ module.exports = {
 			},
 			zIndex: {
 				modal: 999,
-				slidePanel: 998,
-				overlay: 997,
+				slidePanel: 997,
+				overlay: 996,
 				navBarToggle: 91,
 				navBar: 90
 			},
