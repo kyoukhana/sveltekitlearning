@@ -40,12 +40,13 @@
 				"street": "123 Main Street",
 				"zip": "12345"
 			},
-			"createdAt": "2022-07-01",
-			"dueDate": "2022-07-31",
+			"createdAt": "2023-07-01",
+			"discount":10,
+			"dueDate": "2023-07-31",
 			"id": "1",
 			"invoiceNumber": "12345",
 			"invoiceStatus": "draft",
-			"issueDate": "2022-07-01",
+			"issueDate": "2023-07-01",
 			"lineItems": [
 				{
 					"amount": 100,
@@ -75,12 +76,12 @@
 				"street": "123 Main Street",
 				"zip": "12345"
 			},
-			"createdAt": "2022-07-01",
-			"dueDate": "2022-07-06",
+			"createdAt": "2023-07-01",
+			"dueDate": "2023-07-06",
 			"id": "2",
 			"invoiceNumber": "12352",
 			"invoiceStatus": "draft",
-			"issueDate": "2022-07-08",
+			"issueDate": "2023-07-08",
 			"lineItems": [
 				{
 					"amount": 300,
@@ -107,12 +108,12 @@
 				"street": "456 State Street",
 				"zip": "98765"
 			},
-			"createdAt": "2022-07-01",
-			"dueDate": "2022-10-06",
+			"createdAt": "2023-07-01",
+			"dueDate": "2023-10-06",
 			"id": "6",
 			"invoiceNumber": "12346",
 			"invoiceStatus": "paid",
-			"issueDate": "2022-07-01",
+			"issueDate": "2023-07-01",
 			"lineItems": [
 				{
 					"amount": 1000,
@@ -139,12 +140,12 @@
 				"street": "789 Common Drive",
 				"zip": "56789"
 			},
-			"createdAt": "2022-07-01",
-			"dueDate": "2022-06-06",
+			"createdAt": "2023-07-01",
+			"dueDate": "2023-06-06",
 			"id": "7",
 			"invoiceNumber": "12347",
 			"invoiceStatus": "sent",
-			"issueDate": "2022-07-01",
+			"issueDate": "2023-07-01",
 			"lineItems": [
 				{
 					"amount": 5000000,
@@ -165,12 +166,12 @@
 				"street": "789 Common Drive",
 				"zip": "56789"
 			},
-			"createdAt": "2022-07-06",
-			"dueDate": "2022-10-06",
+			"createdAt": "2023-07-06",
+			"dueDate": "2023-10-06",
 			"id": "5",
 			"invoiceNumber": "12348",
 			"invoiceStatus": "sent",
-			"issueDate": "2022-07-06",
+			"issueDate": "2023-07-06",
 			"lineItems": [
 				{
 					"amount": 1000000,

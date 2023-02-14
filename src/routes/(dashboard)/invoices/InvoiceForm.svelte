@@ -30,7 +30,10 @@
 	export let formState: 'create' | 'edit' = 'create';
 
 	export let closePanel: () => void = () => {};
+
 	let isModalShowing = false;
+
+	const initalDiscount = invoice.discount || 0;
 
 	const AddLineItem = () => {
 		invoice.lineItems = [...(invoice.lineItems as []), { ...blankLineItem, id: uuidv4() }];
@@ -43,10 +46,6 @@
 	const UpdateLineItem = () => {
 		invoice.lineItems = invoice.lineItems;
 	};
-
-	onMount(() => {
-		loadClients();
-	});
 
 	const handleSubmit = () => {
 		console.log({ invoice, newClient });
@@ -62,6 +61,14 @@
 		}
 
 		closePanel();
+	};
+
+	onMount(() => {
+		loadClients();
+	});
+
+	const UpdateDiscount = (event: CustomEvent) => {
+		invoice.discount = event.detail.discount;
 	};
 </script>
 
@@ -192,6 +199,7 @@
 			on:addLineItem={AddLineItem}
 			on:removeLineItem={RemoveLineItem}
 			on:updateLineItem={UpdateLineItem}
+			on:updateDiscount={UpdateDiscount}
 		/>
 	</section>
 
@@ -221,7 +229,9 @@
 				style="textOnlyDestructive"
 				label="Delete"
 				isAnimated={false}
-				onClick={() => {isModalShowing=true;}}
+				onClick={() => {
+					isModalShowing = true;
+				}}
 				iconLeft={Trash}
 			/>
 		{/if}
@@ -243,10 +253,10 @@
 	</section>
 </form>
 <ConfirmDelete
-  {invoice}
-  {isModalShowing}
-  on:close={() => {
-    isModalShowing = false;
-    closePanel();
-  }}
+	{invoice}
+	{isModalShowing}
+	on:close={() => {
+		isModalShowing = false;
+		closePanel();
+	}}
 />

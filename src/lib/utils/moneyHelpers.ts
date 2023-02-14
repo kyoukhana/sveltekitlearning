@@ -22,6 +22,24 @@ export const centsToDollars = (cents: number): string => {
 	return addThousandSeparator(addDecimals);
 };
 
+
+/**
+ * Takes the lineItems and discount and determines the invoice total
+ * @param {Array|undefined} lineItems
+ * @param {number|undefined} discount
+ * @returns {number}
+ */
+export const invoiceTotal = (lineItems: LineItem[] | undefined, discount: number | undefined): number => {
+	const lineItemsSum = sumLineItems(lineItems);
+	if (discount) {
+	  const invoiceDiscount = lineItemsSum * (discount / 100);
+	  return lineItemsSum - invoiceDiscount;
+	}
+	return lineItemsSum;
+  }
+
+
+
 /**
  * Takes a number and returns the number with 2 decmial places
  * @param {number} myNum 
