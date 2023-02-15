@@ -18,12 +18,20 @@
 	}
 </script>
 
-<section class="invoice-line-item border-b2 border-fog py-2">
-	<div>
-		<input class="line-item" type="text" name="description" bind:value={lineItem.description}  required={isRequired}/>
+<section class="invoice-line-item border-b2 border-fog py-4 sm:py-2">
+	<div class="description">
+		<label for="description" class="line-item-label">Description</label>
+		<input
+			class="line-item"
+			type="text"
+			name="description"
+			bind:value={lineItem.description}
+			required={isRequired}
+		/>
 	</div>
 
-	<div>
+	<div class="unitPrice">
+		<label for="unitPrice" class="line-item-label text-right">Unit Price</label>
 		<input
 			class="line-item text-right"
 			type="number"
@@ -39,7 +47,8 @@
 		/>
 	</div>
 
-	<div>
+	<div class="qty">
+		<label for="quantity" class="line-item-label text-center">Qty</label>
 		<input
 			class="line-item text-center"
 			type="number"
@@ -53,7 +62,8 @@
 		/>
 	</div>
 
-	<div>
+	<div class="amount">
+		<label for="amount" class="line-item-label text-right">Amount</label>
 		<input
 			disabled
 			class="line-item text-right"
@@ -64,8 +74,9 @@
 			bind:value={amount}
 		/>
 	</div>
-	{#if canDelete}
-		<div>
+
+	<div class="trash">
+		{#if canDelete}
 			<button
 				on:click|preventDefault={() => {
 					dispatch('removeLineItem', lineItem.id);
@@ -73,8 +84,8 @@
 				}}
 				class="center h-10 w-10 text-pastelPurple hover:text-lavenderIndigo"><Trash /></button
 			>
-		</div>
-	{/if}
+		{/if}
+	</div>
 </section>
 
 <style lang="postcss">
@@ -99,5 +110,8 @@
 	input[type='number']:disabled,
 	input[type='text']:disabled {
 		@apply border-b-0 bg-transparent px-0;
+	}
+	.line-item-label {
+		@apply block sm:hidden;
 	}
 </style>

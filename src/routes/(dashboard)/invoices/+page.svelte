@@ -16,7 +16,7 @@
 	let isInvoiceFormShowing: boolean = false;
 
 	onMount(() => {
-		loadInvoices($invoices);
+		loadInvoices();
 		console.log('----------------');
 		console.log($invoices);
 	});

@@ -25,7 +25,7 @@ input[type='number']:not(.line-item),
 input[type='date'],
 input[type='password'],
 input[type='email'] {
-	@apply h-14 w-full rounded-lg border-2 border-silver px-4 font-sansSerif text-base;
+	@apply h-10 w-full rounded-lg border-2 border-silver px-4 font-sansSerif text-base lg:h-14;
 }
 
 textarea {
@@ -33,7 +33,7 @@ textarea {
 }
 
 select {
-	@apply h-14 w-full appearance-none rounded-lg border-2 border-silver bg-chevronDown bg-right-center bg-no-repeat p-4;
+	@apply h-10 w-full appearance-none rounded-lg border-2 border-silver bg-chevronDown bg-right-center bg-no-repeat px-4 lg:h-14 lg:p-4;
 }
 
 textarea:focus,
@@ -52,7 +52,37 @@ input[type='email']:focus {
 	}
 
 	.invoice-line-item {
-		@apply grid grid-cols-invoiceLineItem gap-x-5;
+		@apply relative grid gap-5 sm:grid-cols-invoiceLineItem;
+		grid-template-areas:
+			'description description description'
+			'unitPrice qty amount';
+	}
+
+	@media (min-width: 640px) {
+		.invoice-line-item {
+			grid-template-areas: 'description unitPrice qty amount trash';
+		}
+	}
+
+	.invoice-line-item .description {
+		grid-area: description;
+	}
+
+	.invoice-line-item .unitPrice {
+		grid-area: unitPrice;
+	}
+
+	.invoice-line-item .qty {
+		grid-area: qty;
+	}
+
+	.invoice-line-item .amount {
+		grid-area: amount;
+	}
+
+	.invoice-line-item .trash {
+		@apply absolute top-0 right-0 sm:relative;
+		grid-area: trash;
 	}
 
 	.field {
@@ -65,7 +95,7 @@ input[type='email']:focus {
 		}
 	}
 
-	.button{
+	.button {
 		@apply relative whitespace-nowrap rounded-lg px-5 py-2 font-sansSerif text-base font-black lg:px-10 lg:py-3 lg:text-xl;
 	}
 }
