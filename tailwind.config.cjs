@@ -36,7 +36,8 @@ module.exports = {
 				slidePanel: 997,
 				overlay: 996,
 				navBarToggle: 91,
-				navBar: 90
+				navBar: 90,
+				toaster:1000
 			},
 			boxShadow: {
 				colored: '0px 7px 16px rgba(127, 91, 220, 0.002)',
