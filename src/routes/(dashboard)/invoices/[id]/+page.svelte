@@ -1,9 +1,13 @@
 <script lang="ts">
 	import Button from '$lib/components/Button.svelte';
-	import { clients } from '$lib/stores/ClientStore';
 	import { convertDate } from '$lib/utils/dateHelpers';
 	import LineItemRows from '../LineItemRows.svelte';
+	import { settings, loadSettings } from '$lib/stores/SettingsStore';
+	import { onMount } from 'svelte';
 	export let data: { invoice: Invoice };
+	onMount(() => {
+		loadSettings();
+	});
 
 	const printInvoice = () => {
 		console.log('print invoice');
@@ -50,12 +54,24 @@
 	</section>
 
 	<section class="col-span-2 col-start-5 pt-4">
-		<section class="label">From</section>
-		<p>
-			Amy Dutton<br />
-			123 Awesome Street<br />
-			Coolville, TN 54321
-		</p>
+		{#if $settings && $settings.myName}
+			<section class="label">From</section>
+			<p>
+				{$settings.myName}<br />
+
+				{#if $settings.street && $settings.city && $settings.postal}
+					{$settings.street}<br />
+					{$settings.city}, {$settings.postal}
+				{/if}
+			</p>
+			{:else}
+			<div class="center min-h-[68px] rounded bg-gallery">
+			  <a href="#" class="text-stone-600 underline hover:no-underline"
+				>Add your contact information.</a
+			  >
+			</div>
+		{/if}
+		
 	</section>
 
 	<section class="col-span-3">
@@ -91,10 +107,10 @@
 
 	<section class="col-span-6">
 		<LineItemRows
-		lineItems={data.invoice.lineItems}
-		isEditable={false}
-		discount={data?.invoice?.discount || 0}
-	  />
+			lineItems={data.invoice.lineItems}
+			isEditable={false}
+			discount={data?.invoice?.discount || 0}
+		/>
 	</section>
 
 	{#if data.invoice.notes}
@@ -103,7 +119,7 @@
 			<p>{data.invoice.notes}</p>
 		</section>
 	{/if}
-	
+
 	{#if data.invoice.terms}
 		<section class="col-span-6">
 			<section class="label">Terms and Conditions</section>

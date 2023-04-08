@@ -6,8 +6,8 @@
 			"email": "compressed@example.com",
 			"id": "1",
 			"name": "Compressed.fm",
-			"state": "TN",
-			"zip": "12345"
+			"province": "TN",
+			"postal": "12345"
 		},
 		{
 			"address": "456 Drive",
@@ -15,8 +15,8 @@
 			"email": "everythingsvelte@test.com",
 			"id": "2",
 			"name": "Everything Svelte",
-			"state": "TN",
-			"zip": "67890"
+			"province": "TN",
+			"postal": "67890"
 		},
 		{
 			"address": "789 Boulevard",
@@ -24,8 +24,8 @@
 			"email": "zeal@test.com",
 			"id": "3",
 			"name": "ZEAL",
-			"state": "TN",
-			"zip": "87654"
+			"province": "TN",
+			"postal": "87654"
 		}
 	],
 	"invoices": [
@@ -36,12 +36,12 @@
 				"email": "compressed@example.com",
 				"id": "1",
 				"name": "Compressed.fm",
-				"state": "TN",
-				"street": "123 Main Street",
+				"province": "TN",
+				"postaleet": "123 Main Street",
 				"zip": "12345"
 			},
 			"createdAt": "2023-07-01",
-			"discount":10,
+			"discount": 10,
 			"dueDate": "2023-07-31",
 			"id": "1",
 			"invoiceNumber": "12345",
@@ -72,8 +72,8 @@
 				"email": "compressed@example.com",
 				"id": "1",
 				"name": "Compressed.fm",
-				"state": "TN",
-				"street": "123 Main Street",
+				"province": "TN",
+				"postaleet": "123 Main Street",
 				"zip": "12345"
 			},
 			"createdAt": "2023-07-01",
@@ -104,8 +104,8 @@
 				"email": "svelte@example.com",
 				"id": "2",
 				"name": "Everything Svelte",
-				"state": "FL",
-				"street": "456 State Street",
+				"province": "FL",
+				"postaleet": "456 State Street",
 				"zip": "98765"
 			},
 			"createdAt": "2023-07-01",
@@ -136,8 +136,8 @@
 				"email": "zeal@example.com",
 				"id": "3",
 				"name": "ZEAL",
-				"state": "CA",
-				"street": "789 Common Drive",
+				"province": "CA",
+				"postaleet": "789 Common Drive",
 				"zip": "56789"
 			},
 			"createdAt": "2023-07-01",
@@ -162,8 +162,8 @@
 				"email": "zeal@example.com",
 				"id": "3",
 				"name": "ZEAL",
-				"state": "CA",
-				"street": "789 Common Drive",
+				"province": "CA",
+				"postaleet": "789 Common Drive",
 				"zip": "56789"
 			},
 			"createdAt": "2023-07-06",
@@ -182,5 +182,14 @@
 			],
 			"subject": "Website"
 		}
-	]
+	],
+
+	"settings": {
+		"myName": "Kevin Yoko",
+		"email": "kyoko@gmail.com",
+		"street": "123 Main Street",
+		"city": "Toronto",
+		"province": "Ontario",
+		"postal": "L7K2S5"
+	}
 }

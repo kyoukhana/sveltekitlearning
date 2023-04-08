@@ -31,6 +31,15 @@ interface Client {
 	postal?: string;
 }
 
+interface Settings {
+	myName: string;
+	email: string;
+	street: string;
+	city: string;
+	province: string;
+	postal: string;
+}
+
 type NotificationType = 'success' | 'error' | 'info' | 'warning';
 
 interface Snackbar {
