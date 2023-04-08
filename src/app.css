@@ -28,6 +28,12 @@ input[type='email'] {
 	@apply h-10 w-full rounded-lg border-2 border-silver px-4 font-sansSerif text-base lg:h-14;
 }
 
+input[type=number]:disabled{
+	@apply appearance-none;
+	-moz-appearance:textfield;
+}
+
+
 textarea {
 	@apply h-32 w-full rounded-lg border-2  border-silver p-4 font-sansSerif text-base;
 }

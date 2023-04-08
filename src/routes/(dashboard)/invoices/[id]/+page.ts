@@ -6,10 +6,9 @@ interface Props{
     }
 }
 
-export function load({params}:Props){
-    const id=params?.id;
+export function load({ params }: Props) {
+    const id = params?.id;
     const invoice = getInvoiceById(id);
-    console.log({invoice})
-    return invoice;
-};
-
+    console.log({ invoice });
+    return { invoice };
+  };

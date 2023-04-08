@@ -1,5 +1,9 @@
 <script lang="ts">
 	import Button from '$lib/components/Button.svelte';
+	import { clients } from '$lib/stores/ClientStore';
+	import { convertDate } from '$lib/utils/dateHelpers';
+	import LineItemRows from '../LineItemRows.svelte';
+	export let data: { invoice: Invoice };
 
 	const printInvoice = () => {
 		console.log('print invoice');
@@ -35,7 +39,7 @@
 </section>
 
 <section
-	class="shadow-invoice relative top-32 z-10 grid grid-cols-6 gap-x-5 gap-y-8 bg-white py-16 px-32"
+	class="relative top-32 z-10 grid grid-cols-6 gap-x-5 gap-y-8 bg-white py-16 px-32 shadow-invoice"
 >
 	<section class="col-span-3">
 		<img
@@ -57,46 +61,55 @@
 	<section class="col-span-3">
 		<section class="label">Bill To:</section>
 		<p>
-			<strong>ZEAL</strong><br />
-			zeal@example.com<br />
-			789 Stellar Street<br />
-			Anywhereville, CA 56789
+			<strong>{data.invoice.client.name}</strong><br />
+			{data.invoice.client.email}<br />
+			{data.invoice.client.street}<br />
+			{data.invoice.client.city}, {data.invoice.client.province}
+			{data.invoice.client.postal}
 		</p>
 	</section>
 
 	<section class="col-span-2 col-start-5">
 		<section class="label">Invoice ID</section>
-		<p>12348</p>
+		<p>{data.invoice.invoiceNumber}</p>
 	</section>
 
 	<section class="col-span-3">
 		<section class="label">Due Date</section>
-		<p>10 / 6 / 2022</p>
+		<p>{convertDate(data.invoice.dueDate)}</p>
 	</section>
 
 	<section class="col-span-2 col-start-5">
 		<section class="label">Issue Date</section>
-		<p>7 / 6 / 2022</p>
+		<p>{convertDate(data.invoice.issueDate)}</p>
 	</section>
 
 	<section class="col-span-6">
 		<section class="label">Subject</section>
-		<p>Website</p>
+		<p>{data.invoice.subject}</p>
 	</section>
 
 	<section class="col-span-6">
-		<!-- Line Items -->
+		<LineItemRows
+		lineItems={data.invoice.lineItems}
+		isEditable={false}
+		discount={data?.invoice?.discount || 0}
+	  />
 	</section>
 
-	<section class="col-span-6">
-		<section class="label">Notes</section>
-		<p>lorem ipsum</p>
-	</section>
-
-	<section class="col-span-6">
-		<section class="label">Terms and Conditions</section>
-		<p>lorem ipsum</p>
-	</section>
+	{#if data.invoice.notes}
+		<section class="col-span-6">
+			<section class="label">Notes</section>
+			<p>{data.invoice.notes}</p>
+		</section>
+	{/if}
+	
+	{#if data.invoice.terms}
+		<section class="col-span-6">
+			<section class="label">Terms and Conditions</section>
+			<p>{data.invoice.terms}</p>
+		</section>
+	{/if}
 </section>
 
 <style lang="postcss">

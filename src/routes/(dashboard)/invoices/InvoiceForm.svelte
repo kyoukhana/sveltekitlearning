@@ -11,69 +11,75 @@
 	import { addInvoice, updateInvoice } from '$lib/stores/InvoiceStore';
 	import ConfirmDelete from './ConfirmDelete.svelte';
 	import { snackbar } from '$lib/stores/SnackbarStore';
-
+  
 	const blankLineItem = {
-		id: uuidv4(),
-		description: '',
-		quantity: 0,
-		amount: 0
+	  id: uuidv4(),
+	  description: '',
+	  quantity: 0,
+	  amount: 0
 	};
-
+  
 	let isNewClient: boolean = false;
-
 	export let invoice: Invoice = {
-		client: {} as Client,
-		lineItems: [{ ...blankLineItem }] as LineItem[]
+	  client: {} as Client,
+	  lineItems: [{ ...blankLineItem }] as LineItem[]
 	} as Invoice;
-
-	let newClient: Partial<Client> = {} as Client;
-
+	let newClient: Partial<Client> = {};
+  
 	export let formState: 'create' | 'edit' = 'create';
-
+  
 	export let closePanel: () => void = () => {};
-
+  
 	let isModalShowing = false;
-
-	const initalDiscount = invoice.discount || 0;
-
+  
+	const initialDiscount = invoice.discount || 0;
+  
 	const AddLineItem = () => {
-		invoice.lineItems = [...(invoice.lineItems as []), { ...blankLineItem, id: uuidv4() }];
+	  invoice.lineItems = [...(invoice.lineItems as []), { ...blankLineItem, id: uuidv4() }];
 	};
+  
 	const RemoveLineItem = (event: CustomEvent) => {
+	  invoice.lineItems =
 		invoice?.lineItems && invoice.lineItems.filter((item) => item.id !== event.detail);
-		console.log('remove line item');
+	  console.log('remove line item');
 	};
-
+  
 	const UpdateLineItem = () => {
-		invoice.lineItems = invoice.lineItems;
+	  invoice.lineItems = invoice.lineItems;
 	};
-
+  
 	const handleSubmit = () => {
-		console.log({ invoice, newClient });
-		if (isNewClient) {
-			invoice.client = newClient;
-			addClient(newClient as Client);
-		}
-
-		if (formState === 'create') {
-			addInvoice(invoice);
-			snackbar.send({message:'Your invoice was successfuly created',type:'success'})
-		} else {
-			updateInvoice(invoice);
-			snackbar.send({message:'Your invoice was successfuly updated',type:'success'})
-		}
-
-		closePanel();
+	  if (isNewClient) {
+		invoice.client = newClient as Client;
+		addClient(newClient as Client);
+	  }
+  
+	  if (formState === 'create') {
+		addInvoice(invoice);
+		snackbar.send({
+		  message: 'Your invoice was successfully created.',
+		  type: 'success'
+		});
+	  } else {
+		updateInvoice(invoice);
+		snackbar.send({
+		  message: 'Your invoice was successfully updated.',
+		  type: 'success'
+		});
+	  }
+  
+	  closePanel();
 	};
-
-	onMount(() => {
-		loadClients();
-	});
-
+  
 	const UpdateDiscount = (event: CustomEvent) => {
-		invoice.discount = event.detail.discount;
+	  invoice.discount = event.detail.discount;
 	};
-</script>
+  
+	onMount(() => {
+	  loadClients();
+	});
+  </script>
+  
 
 <h2 class="mb-7 font-sansSerif text-3xl font-bold text-daisyBush">
 	{#if formState === 'create'}Add{:else}Edit{/if} an Invoice
@@ -204,13 +210,13 @@
 	<!----Line Items {lineItems} -->
 	<section class="field col-span-6">
 		<LineItemRows
-			discount={invoice.discount}
-			lineItems={invoice.lineItems}
-			on:addLineItem={AddLineItem}
-			on:removeLineItem={RemoveLineItem}
-			on:updateLineItem={UpdateLineItem}
-			on:updateDiscount={UpdateDiscount}
-		/>
+		discount={invoice.discount}
+		lineItems={invoice.lineItems}
+		on:addLineItem={AddLineItem}
+		on:removeLineItem={RemoveLineItem}
+		on:updateLineItem={UpdateLineItem}
+		on:updateDiscount={UpdateDiscount}
+	  />
 	</section>
 
 	<!--Notes-->
