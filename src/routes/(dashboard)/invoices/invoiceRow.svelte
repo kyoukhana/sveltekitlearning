@@ -1,11 +1,10 @@
 <script lang="ts">
 	import AdditionalOptions from '$lib/components/AdditionalOptions.svelte';
-	import ThreeDots from '$lib/components/icon/ThreeDots.svelte';
-	import View from '$lib/components/icon/View.svelte';
+	import ThreeDots from '$lib/components/Icon/ThreeDots.svelte';
+	import View from '$lib/components/Icon/View.svelte';
 	import Tag from '$lib/components/Tag.svelte';
 	import { convertDate, isLate } from '$lib/utils/dateHelpers';
 	import { sumLineItems, centsToDollars, invoiceTotal } from '$lib/utils/moneyHelpers';
-	import { isFirstDayOfMonth } from 'date-fns/esm';
 	import Send from '$lib/components/Icon/Send.svelte';
 	import Trash from '$lib/components/Icon/Trash.svelte';
 	import Edit from '$lib/components/Icon/Edit.svelte';
@@ -65,7 +64,7 @@
 	<div class="viewButton hidden items-center justify-center text-sm lg:flex lg:text-lg">
 		<a href={`/invoices/${invoice.id}`} class="text-pastelPurple hover:text-daisyBush"><View /></a>
 	</div>
-	<div class="items-center justify-center moreButton relative hidden text-sm lg:flex lg:text-lg">
+	<div class="moreButton relative hidden items-center justify-center text-sm lg:flex lg:text-lg">
 		<button
 			class=" text-pastelPurple hover:text-daisyBush"
 			on:click={() => {

@@ -4,6 +4,8 @@
 	import LineItemRows from '../LineItemRows.svelte';
 	import { settings, loadSettings } from '$lib/stores/SettingsStore';
 	import { onMount } from 'svelte';
+	import SvelteMarkdown from 'svelte-markdown';
+
 	export let data: { invoice: Invoice };
 	onMount(() => {
 		loadSettings();
@@ -116,14 +118,14 @@
 	{#if data.invoice.notes}
 		<section class="col-span-6">
 			<section class="label">Notes</section>
-			<p>{data.invoice.notes}</p>
+			 <SvelteMarkdown source={data.invoice.notes} />
 		</section>
 	{/if}
 
 	{#if data.invoice.terms}
 		<section class="col-span-6">
 			<section class="label">Terms and Conditions</section>
-			<p>{data.invoice.terms}</p>
+			<SvelteMarkdown source={data.invoice.terms} />
 		</section>
 	{/if}
 </section>
