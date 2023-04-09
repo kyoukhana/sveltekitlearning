@@ -37,7 +37,7 @@
 </script>
 
 <section
-	class="fixed z-0 mb-16 flex w-full max-w-screen-lg flex-col justify-between gap-y-5 px-4 md:flex-row lg:px-0"
+	class="fixed z-0 mb-16 flex w-full max-w-screen-lg flex-col justify-between gap-y-5 px-4 print:hidden md:flex-row lg:px-0"
 >
 	<h1 class="text-3xl font-bold text-daisyBush">Invoice</h1>
 	<section class="grap-2 sm:flex-no-wrap flex flex-wrap items-center gap-4">
@@ -60,9 +60,9 @@
 </section>
 
 <section
-	class="relative top-32 z-10 grid grid-cols-6 gap-x-5 gap-y-8 bg-white py-8 px-5 md:py-16 md:px-32 shadow-invoice"
+	class="relative top-32 z-10 grid grid-cols-6 gap-x-5 gap-y-8 bg-white py-8 px-5 shadow-invoice print:top-0 print:py-0 print:shadow-none md:py-16 md:px-32"
 >
-	<section class="sm:col-span-3 col-span-6">
+	<section class="col-span-6 print:col-span-3 sm:col-span-3">
 		<img
 			src="/images/logo.png"
 			srcset="/images/logo@2x.png 2x, /images/logo.png 1x"
@@ -70,7 +70,7 @@
 		/>
 	</section>
 
-	<section class="col-span-6 sm:col-span-2 sm:col-start-5 pt-4">
+	<section class="col-span-6 print:col-span-3 pt-4 sm:col-span-2 sm:col-start-5">
 		{#if $settings && $settings.myName}
 			<section class="label">From</section>
 			<p>
@@ -90,7 +90,7 @@
 		{/if}
 	</section>
 
-	<section class="col-span-6 sm:col-span-3">
+	<section class="col-span-6 sm:col-span-3 print:col-span-3">
 		<section class="label">Bill To:</section>
 		<p>
 			<strong>{data.invoice.client.name}</strong><br />
@@ -101,7 +101,7 @@
 		</p>
 	</section>
 
-	<section class="sm:col-span-2 sm:col-start-5 col-span-6">
+	<section class="col-span-6 sm:col-span-2 sm:col-start-5">
 		<section class="label">Invoice ID</section>
 		<p>{data.invoice.invoiceNumber}</p>
 	</section>
