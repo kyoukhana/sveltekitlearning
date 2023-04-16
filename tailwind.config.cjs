@@ -27,7 +27,9 @@ module.exports = {
 				whisper: '#f9f4f9'
 			},
 			gridTemplateColumns: {
-				invoiceLineItem:'1fr 100px 100px 100px 65px',
+				clientTable: '100px 1fr 125px 125px 32px 32px',
+				clientTableMobile: '1fr 90px',
+				invoiceLineItem: '1fr 100px 100px 100px 65px',
 				invoiceTable: '100px 100px 60px 1fr 116px 32px 32px',
 				invoiceTableMobile: '1fr 90px'
 			},
@@ -37,7 +39,7 @@ module.exports = {
 				overlay: 996,
 				navBarToggle: 91,
 				navBar: 90,
-				toaster:1000
+				toaster: 1000
 			},
 			boxShadow: {
 				colored: '0px 7px 16px rgba(127, 91, 220, 0.002)',
@@ -55,7 +57,7 @@ module.exports = {
 				chevronDown: "url('/images/chevron--down.svg')",
 				circle: "url('/images/circle.svg')",
 				thankYou: "url('/images/bg-thankYou.svg')",
-				bg404: "url('/images/bg-404.svg')",
+				bg404: "url('/images/bg-404.svg')"
 			},
 			backgroundPosition: {
 				'right-center': '97% center'

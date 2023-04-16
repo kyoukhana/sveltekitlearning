@@ -92,8 +92,12 @@ input[type='email']:focus {
 	}
 
 	.invoice-line-item .trash {
-		@apply absolute top-0 right-0 sm:relative;
+		@apply absolute right-0 top-0 sm:relative;
 		grid-area: trash;
+	}
+
+	.client-table {
+		@apply mb-3 grid w-full grid-cols-clientTableMobile gap-x-4 px-4 lg:grid-cols-clientTable lg:px-6;
 	}
 
 	.field {
