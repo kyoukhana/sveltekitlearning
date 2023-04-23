@@ -77,9 +77,9 @@ export const sumLineItems = (lineItems: LineItem[] | undefined): number => {
    * @returns {number}
    */
   export const sumInvoices = (invoices: Invoice[] | undefined): number => {
-	if (!invoices) return 0
-	return invoices.reduce((prevValue, curValue) => {
-	  const invoiceSum = sumLineItems(curValue.lineItems);
-	  return prevValue + invoiceSum;
-	}, 0)
+    if (!invoices) return 0
+    return invoices.reduce((prevValue, curValue) => {
+      const invoiceSum = invoiceTotal(curValue.lineItems, curValue.discount);
+      return prevValue + invoiceSum;
+    }, 0)
   }

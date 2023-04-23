@@ -29,6 +29,7 @@ interface Client {
 	province?: string;
 	street?: string;
 	postal?: string;
+	invoices?: Invoices[];
 }
 
 interface Settings {
