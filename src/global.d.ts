@@ -27,7 +27,7 @@ interface Client {
 	id: string;
 	name: string;
 	province?: string;
-	street?: string;
+	address?: string;
 	postal?: string;
 	invoices?: Invoices[];
 }
@@ -35,9 +35,9 @@ interface Client {
 interface Settings {
 	myName: string;
 	email: string;
-	street: string;
+	address: string;
 	city: string;
-	province: string;
+	address: string;
 	postal: string;
 }
 

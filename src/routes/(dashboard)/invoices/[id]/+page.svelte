@@ -76,8 +76,8 @@
 			<p>
 				{$settings.myName}<br />
 
-				{#if $settings.street && $settings.city && $settings.postal}
-					{$settings.street}<br />
+				{#if $settings.address && $settings.city && $settings.postal}
+					{$settings.address}<br />
 					{$settings.city}, {$settings.postal}
 				{/if}
 			</p>
@@ -95,7 +95,7 @@
 		<p>
 			<strong>{data.invoice.client.name}</strong><br />
 			{data.invoice.client.email}<br />
-			{data.invoice.client.street}<br />
+			{data.invoice.client.address}<br />
 			{data.invoice.client.city}, {data.invoice.client.province}
 			{data.invoice.client.postal}
 		</p>

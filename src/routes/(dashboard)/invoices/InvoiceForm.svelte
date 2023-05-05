@@ -164,8 +164,8 @@
 			</div>
 
 			<div class="field col-span-6">
-				<label for="street">Street</label>
-				<input type="text" name="street" id="street" bind:value={newClient.street} />
+				<label for="address">Address</label>
+				<input type="text" name="address" id="address" bind:value={newClient.address} />
 			</div>
 
 			<div class="field col-span-2">

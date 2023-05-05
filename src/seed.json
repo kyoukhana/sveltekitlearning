@@ -7,8 +7,8 @@
 			"email": "compressed@example.com",
 			"id": "1",
 			"name": "Compressed.fm",
-			"province": "TN",
-			"postal": "12345",
+			"province": "ON",
+			"postal": "L7K2S5",
 			"invoices": [
 				{
 					"client": {
@@ -103,13 +103,13 @@
 				}
 			],
 			"name": "Everything Svelte",
-			"province": "TN",
-			"postal": "67890"
+			"province": "ON",
+			"postal": "L7K2S5"
 		},
 		{
 			"address": "789 Boulevard",
 			"clientStatus": "active",
-			"city": "Anywhere",
+			"city": "Guelph",
 			"email": "zeal@test.com",
 			"id": "3",
 			"invoices": [
@@ -155,8 +155,8 @@
 				}
 			],
 			"name": "ZEAL",
-			"province": "TN",
-			"postal": "87654"
+			"province": "ON",
+			"postal": "L7K2S5"
 		}
 	],
 	"invoices": [
@@ -167,7 +167,7 @@
 				"email": "compressed@example.com",
 				"id": "1",
 				"name": "Compressed.fm",
-				"province": "TN",
+				"province": "ON",
 				"postaleet": "123 Main Street",
 				"zip": "12345"
 			},
@@ -203,7 +203,7 @@
 				"email": "compressed@example.com",
 				"id": "1",
 				"name": "Compressed.fm",
-				"province": "TN",
+				"province": "ON",
 				"postaleet": "123 Main Street",
 				"zip": "12345"
 			},
@@ -318,9 +318,9 @@
 	"settings": {
 		"myName": "Kevin Yoko",
 		"email": "kyoko@gmail.com",
-		"street": "123 Main Street",
+		"address": "123 Main Street",
 		"city": "Toronto",
-		"province": "Ontario",
-		"postal": "L7K2S5"
+		"province": "ON",
+		"postal": "L7K 2S5"
 	}
 }

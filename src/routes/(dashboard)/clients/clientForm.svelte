@@ -5,17 +5,33 @@
 	import { provinces } from '$lib/utils/provinces';
 	import type { clientStatus } from '../../../enums';
 	export let client: client = {} as Client;
-    import { addClient } from '$lib/stores/ClientStore';
+    import { addClient, updateClient } from '$lib/stores/ClientStore';
+	import { snackbar } from '$lib/stores/SnackbarStore';
 
+    export let formStatus: "create" | "edit" = "create";
 	export let closePanel: () => void = () => {};
 
-    const handleSubmit = () => {
-        addClient(client);  
-        closePanel();
+	const handleSubmit = () => {
+    if (formStatus === 'create') {
+      addClient(client);
+      snackbar.send({
+        message: 'Your client was successfully created.',
+        type: 'success'
+      });
+    } else {
+      updateClient(client);
+      snackbar.send({
+        message: 'Your client was successfully updated.',
+        type: 'success'
+      });
+    }
+    closePanel();
   };
 </script>
 
-<h2 class="mb-7 font-sansSerif text-3xl font-bold text-daisyBush">Add a Client</h2>
+<h2 class="mb-7 font-sansSerif text-3xl font-bold text-daisyBush">
+	{#if formStatus === 'create'}Add{:else}Edit{/if} a Client 
+</h2>
 <form class="grid grid-cols-6 gap-x-5" on:submit|preventDefault={handleSubmit}>
 	<div class="field col-span-6">
 		<label for="name">Name</label>
@@ -27,12 +43,12 @@
 		<input type="email" name="email" bind:value={client.email} required />
 	</div>
 	<div class="field col-span-6">
-		<label for="street">Address</label>
-		<input type="text" name="street" bind:value={client.street} />
+		<label for="address">Address</label>
+		<input type="text" name="address" bind:value={client.address} />
 	</div>
 
 	<div class="field col-span-2">
-		<label for="street">City</label>
+		<label for="address">City</label>
 		<input type="text" name="city" bind:value={client.city} />
 	</div>
 
