@@ -57,7 +57,8 @@ module.exports = {
 				chevronDown: "url('/images/chevron--down.svg')",
 				circle: "url('/images/circle.svg')",
 				thankYou: "url('/images/bg-thankYou.svg')",
-				bg404: "url('/images/bg-404.svg')"
+				bg404: "url('/images/bg-404.svg')",
+				auth: "url('/images/bg-auth.svg')"
 			},
 			backgroundPosition: {
 				'right-center': '97% center'
