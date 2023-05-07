@@ -11,118 +11,145 @@
 	import SlidePanel from '$lib/components/SlidePanel.svelte';
 	import Edit from '$lib/components/Icon/Edit.svelte';
 	import ClientForm from '../ClientForm.svelte';
-  
-	export let data;
-	console.log({ data });
-  
+	import { isLate } from '$lib/utils/dateHelpers';
+
+	export let data: { client: Client };
+
 	let isClientFormShowing: boolean = false;
 	let isEditingCurrentClient: boolean = false;
-  
+
 	onMount(() => {
-	  loadInvoices();
-	  console.log($invoices);
+		loadInvoices();
+		console.log($invoices);
 	});
-  
+
 	const editClient = () => {
-	  isEditingCurrentClient = true;
-	  isClientFormShowing = true;
+		isEditingCurrentClient = true;
+		isClientFormShowing = true;
 	};
-  
+
 	const closePanel = () => {
-	  isClientFormShowing = false;
+		isClientFormShowing = false;
 	};
-  </script>
-  
-  <svelte:head>
+
+	const getDraft = (): string => {
+		if (!data.client.invoices || data.client.invoices.length < 1) return '0.00';
+		const draftInvoices = data.client.invoices.filter(
+			(invoice) => invoice.invoiceStatus === 'draft'
+		);
+		return centsToDollars(sumInvoices(draftInvoices));
+	};
+
+	const getPaid = (): string => {
+		if (!data.client.invoices || data.client.invoices.length < 1) return '0.00';
+		const paidInvoices = data.client.invoices.filter((invoice) => invoice.invoiceStatus === 'paid');
+		return centsToDollars(sumInvoices(paidInvoices));
+	};
+	const getTotalOverdue = (): string => {
+		if (!data.client.invoices || data.client.invoices.length < 1) return '0.00';
+		const paidInvoices = data.client.invoices.filter(
+			(invoice) => invoice.invoiceStatus === 'sent' && isLate(invoice.dueDate)
+		);
+		return centsToDollars(sumInvoices(paidInvoices));
+	};
+	const getTotalOutstanding = (): string => {
+		if (!data.client.invoices || data.client.invoices.length < 1) return '0.00';
+		const paidInvoices = data.client.invoices.filter(
+			(invoice) => invoice.invoiceStatus === 'sent' && !isLate(invoice.dueDate)
+		);
+		return centsToDollars(sumInvoices(paidInvoices));
+	};
+</script>
+
+<svelte:head>
 	<title>Invoices | The Dollar Holler</title>
-  </svelte:head>
-  
-  <div
+</svelte:head>
+
+<div
 	class="md:gap-7-4 mb-7 flex flex-col-reverse items-start justify-between gap-y-6 md:flex-row md:items-center lg:mb-16"
-  >
+>
 	<!-- search field -->
 	{#if data.client.invoices && data.client.invoices.length > 0}
-	  <Search />
+		<Search />
 	{:else}
-	  <div />
+		<div />
 	{/if}
-  
+
 	<!-- new invoice button -->
 	<div>
-	  <Button
-		label="+ Client"
-		onClick={() => {
-		  isClientFormShowing = true;
-		}}
-	  />
+		<Button
+			label="+ Client"
+			onClick={() => {
+				isClientFormShowing = true;
+			}}
+		/>
 	</div>
-  </div>
-  
-  <div class="mb-7 flex w-full items-center justify-between">
-	<h1 class="font-sansSerif text-3xl font-bold text-daisyBush">Compressed.fm</h1>
+</div>
+
+<div class="mb-7 flex w-full items-center justify-between">
+	<h1 class="font-sansSerif text-3xl font-bold text-daisyBush">{data.client.name}</h1>
 	<Button label="Edit" isAnimated={false} style="textOnly" iconLeft={Edit} onClick={editClient} />
-  </div>
-  
-  <div class="mb-10 grid grid-cols-1 gap-4 rounded-lg bg-gallery py-7 px-10 lg:grid-cols-4">
+</div>
+
+<div class="mb-10 grid grid-cols-1 gap-4 rounded-lg bg-gallery px-10 py-7 lg:grid-cols-4">
 	<div class="summary-block">
-	  <div class="label">Total Overdue</div>
-	  <div class="number"><sup>$</sup>300.00</div>
+		<div class="label">Total Overdue</div>
+		<div class="number"><sup>$</sup>{getTotalOverdue()}</div>
 	</div>
 	<div class="summary-block">
-	  <div class="label">Total Oustanding</div>
-	  <div class="number"><sup>$</sup>300.00</div>
+		<div class="label">Total Oustanding</div>
+		<div class="number"><sup>$</sup>{getTotalOutstanding()}</div>
 	</div>
 	<div class="summary-block">
-	  <div class="label">Total Draft</div>
-	  <div class="number"><sup>$</sup>300.00</div>
+		<div class="label">Total Draft</div>
+		<div class="number"><sup>$</sup>{getDraft()}</div>
 	</div>
 	<div class="summary-block">
-	  <div class="label">Total Paid</div>
-	  <div class="number"><sup>$</sup>300.00</div>
+		<div class="label">Total Paid</div>
+		<div class="number"><sup>$</sup>{getPaid()}</div>
 	</div>
-  </div>
-  
-  <!-- list of invoices -->
-  <div>
+</div>
+
+<!-- list of invoices -->
+<div>
 	<!-- invoices -->
 	{#if data.client.invoices === null}
-	  Loading...
+		Loading...
 	{:else if data.client.invoices.length <= 0}
-	  <BlankState />
+		<BlankState />
 	{:else}
-	  <InvoiceRowHeader className="text-daisyBush" />
-	  <div class="flex flex-col-reverse">
-		{#each data.client.invoices as invoice}
-		  <InvoiceRow {invoice} />
-		{/each}
-	  </div>
-	  <CircledAmount label="Total" amount={`$${centsToDollars(sumInvoices(data.client.invoices))}`} />
+		<InvoiceRowHeader className="text-daisyBush" />
+		<div class="flex flex-col-reverse">
+			{#each data.client.invoices as invoice}
+				<InvoiceRow {invoice} />
+			{/each}
+		</div>
+		<CircledAmount label="Total" amount={`$${centsToDollars(sumInvoices(data.client.invoices))}`} />
 	{/if}
-  </div>
-  
-  <!-- slide panel -->
-  {#if isClientFormShowing}
+</div>
+
+<!-- slide panel -->
+{#if isClientFormShowing}
 	<SlidePanel on:closePanel={closePanel}>
-	  <ClientForm
-		{closePanel}
-		formStatus={isEditingCurrentClient ? 'edit' : 'create'}
-		client={isEditingCurrentClient ? data.client : undefined}
-	  />
+		<ClientForm
+			{closePanel}
+			formStatus={isEditingCurrentClient ? 'edit' : 'create'}
+			client={isEditingCurrentClient ? data.client : undefined}
+		/>
 	</SlidePanel>
-  {/if}
-  
-  <style lang="postcss">
+{/if}
+
+<style lang="postcss">
 	.summary-block {
-	  @apply text-center;
+		@apply text-center;
 	}
 	.label {
-	  @apply text-sm font-black text-[#A397AD];
+		@apply text-sm font-black text-[#A397AD];
 	}
 	sup {
-	  @apply relative -top-2;
+		@apply relative -top-2;
 	}
 	.number {
-	  @apply truncate text-[2.5rem] font-black text-purple;
+		@apply truncate text-[2.5rem] font-black text-purple;
 	}
-  </style>
-  
+</style>
