@@ -3,7 +3,7 @@
     let email: string, password: string, alertMessage: string ="";
   </script>
   
-  <h1 class="mb-4 text-[2.5rem] font-black text-goldenFizz">Login</h1>
+  <h1 class="auth-heading">Login</h1>
   
   <form>
     <Alert message={alertMessage} />
@@ -21,8 +21,7 @@
     <div class="field">
       <button
         type="submit"
-        class="mt-6 min-h-[3.5rem] w-full rounded-lg bg-robinEggBlue py-3 px-4 text-xl font-bold text-daisyBush transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
-      >
+        class="auth-button">
         Let's do this!
       </button>
       <p class="mt-4 text-center text-sm text-white">
