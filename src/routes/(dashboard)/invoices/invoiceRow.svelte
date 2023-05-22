@@ -12,6 +12,7 @@
 	import InvoiceForm from './InvoiceForm.svelte';
 	import ConfirmDelete from './ConfirmDelete.svelte';
 	import { clickOutside } from '$lib/actions/ClickOutside';
+	import { swipe } from '$lib/actions/Swipe';
 
 	export let invoice: Invoice;
 
@@ -52,7 +53,8 @@
 
 <section
 	class="invoice-table invoice-row items-center rounded-lg bg-white py-3 shadow-tableRow lg:py-6"
->
+	use:swipe
+	>
 	<div class="status"><Tag className="ml-auto lg:ml-0" label={getInvoiceLabel()} /></div>
 	<div class="dueDate lg:text text-sm">{convertDate(invoice.dueDate)}</div>
 	<div class="invoiceNumber lg:text text-sm">{invoice.invoiceNumber}</div>
