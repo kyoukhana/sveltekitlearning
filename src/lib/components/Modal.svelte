@@ -3,6 +3,7 @@
 	import Portal from '$lib/components/Portal.svelte';
 	import Overlay from '$lib/components/Overlay.svelte';
 	import Cancel from './icon/Cancel.svelte';
+	import { clickOutside } from '$lib/actions/ClickOutside';
 
 	export let isVisible: boolean = false;
 
@@ -21,7 +22,9 @@
 	<Portal>
 		<Overlay className="!z-modalOverlay"/>
 		<div class="center fixed inset-0 z-modal">
-			<div class="relative min-h-[230px] w-full max-w-[450px] rounded-lg bg-white px-10 py-7">
+			<div class="relative min-h-[230px] w-full max-w-[450px] rounded-lg bg-white px-10 py-7"  use:clickOutside={() => {
+				dispatch("close")
+			  }}>
 				<button
 					on:click={() => {
 						dispatch('close');
