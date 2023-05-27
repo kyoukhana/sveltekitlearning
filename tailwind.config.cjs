@@ -34,12 +34,15 @@ module.exports = {
 				invoiceTableMobile: '1fr 90px'
 			},
 			zIndex: {
+				toaster: 1000,
 				modal: 999,
+				modalOverlay: 998,
 				slidePanel: 997,
 				overlay: 996,
 				navBarToggle: 91,
 				navBar: 90,
-				toaster: 1000
+				row: 5,
+				rowActions: 1
 			},
 			boxShadow: {
 				colored: '0px 7px 16px rgba(127, 91, 220, 0.002)',
