@@ -21,6 +21,7 @@
 	let isOptionsDisabled = false;
 	let isModalShowing = false;
 	let isInvoiceFormShowing: boolean = false;
+	let triggerReset = false; 
 
 	const getInvoiceLabel = () => {
 		if (invoice.invoiceStatus === 'draft') {
@@ -55,9 +56,9 @@
 
 <section class="relative">
 
-	<section
-	class="invoice-table invoice-row relative z-row items-center rounded-lg bg-white py-3 shadow-tableRow lg:py-6"
-		use:swipe
+	<section class="invoice-table invoice-row relative z-row items-center rounded-lg bg-white py-3 shadow-tableRow lg:py-6"
+		use:swipe={{ triggerReset }}
+		on:outOfView={() => { triggerReset = false }}
 		>
 		<div class="status"><Tag className="ml-auto lg:ml-0" label={getInvoiceLabel()} /></div>
 		<div class="dueDate lg:text text-sm">{convertDate(invoice.dueDate)}</div>
@@ -96,10 +97,10 @@
 
 	<!--Swipe to reval-->
 	<div class="absolute inset-0 z-rowActions flex h-full w-full items-center justify-around">
-		<button class="action-button">
-			<Cancel width={32} height={32} />
-			Cancel
-		  </button>
+		<button class="action-button" on:click={() => {triggerReset = true;}}>
+		<Cancel width={32} height={32} />
+		Cancel
+		</button>
 		  {#if !isOptionsDisabled}
 			<button class="action-button" on:click={handleEdit}>
 			  <Edit width={32} height={32} />
