@@ -26,9 +26,7 @@ export const swipe:Action<HTMLElement, SwipeProps> = (node: HTMLElement, params:
     node.style.transform = `translate3d(${$coords.x}px, 0, 0)` /*Using normal css */
   })
 
-  if(isMobileBreakpoint()){
-    node.addEventListener('mousedown', handleMouseDown);
-  }
+
   
   function isMobileBreakpoint() {
     const mediaQuery = window.matchMedia("(max-width: 1024px)");
@@ -37,9 +35,25 @@ export const swipe:Action<HTMLElement, SwipeProps> = (node: HTMLElement, params:
     }
   }
 
+  function setupEventListeners(){
+   
+    if (isMobileBreakpoint()) {
+      node.addEventListener('mousedown', handleMouseDown);
+      node.addEventListener('touchstart', handleTouchStart);
+    } else {
+      node.removeEventListener('mousedown', handleMouseDown);
+      node.removeEventListener('touchstart', handleTouchStart);
+    }
+
+    // update the card width
+    elementWidth = node.clientWidth;
+  }
+
+  setupEventListeners();
 
   // listen for browser resize
   window.addEventListener("resize", () => {
+
     if (isMobileBreakpoint()) {
       node.addEventListener('mousedown', handleMouseDown);
     } else {
@@ -48,6 +62,7 @@ export const swipe:Action<HTMLElement, SwipeProps> = (node: HTMLElement, params:
 
     // update the card width
     elementWidth = node.clientWidth;
+  
   })
 
   function resetCard(){
@@ -71,19 +86,41 @@ export const swipe:Action<HTMLElement, SwipeProps> = (node: HTMLElement, params:
     window.addEventListener('mouseup', handleMouseUp);
   }
 
+
+
+  function handleTouchStart(event: TouchEvent) {
+    x = event.touches[0].clientX;
+    startingX = event.touches[0].clientX;
+    window.addEventListener('touchmove', handleTouchMove);
+    window.addEventListener('touchend', handleTouchEnd);
+  }
+
+  function handleTouchMove(event: TouchEvent) {
+    const dx = event.touches[0].clientX - x;
+    x = event.touches[0].clientX;
+    updateCoordinates(dx);
+  }
+
+
   function handleMouseMove(event: MouseEvent) {
     // Delta x = difference from where we clicked vs where we are currently.
     const dx = event.clientX - x;
     x = event.clientX;
+     updateCoordinates(dx);
+  }
+
+
+   function updateCoordinates(dx){
     coordinates.update(($coords) => {
       return {
         x: $coords.x + dx,
         y: 0
       }
     });
-  }
+   }
 
-  function updateCoordinates(x) {
+
+  function setXCoordinates(x: number) {
     coordinates.update(() => {
       return { x, y: 0 }
     });
@@ -102,8 +139,16 @@ export const swipe:Action<HTMLElement, SwipeProps> = (node: HTMLElement, params:
     else {
       x = rightSnapX;
     }
-    updateCoordinates(x);
+    setXCoordinates(x);
     }
+
+
+  function handleTouchEnd(event: TouchEvent) {
+    const endingX = event.changedTouches[0].clientX;
+    moveCardOver(endingX);
+    window.removeEventListener('touchmove', handleTouchMove);
+    window.removeEventListener('touchend', handleTouchEnd);
+  }   
 
   function handleMouseUp(event: MouseEvent) {
     const endingX = event.clientX;
@@ -120,6 +165,7 @@ export const swipe:Action<HTMLElement, SwipeProps> = (node: HTMLElement, params:
     },
     destroy() {
       node.removeEventListener('mousedown', handleMouseDown);
+      node.removeEventListener('touchstart', handleTouchStart);
     }
   }
 }
