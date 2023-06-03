@@ -8,7 +8,7 @@ interface SwipeProps {
 export const swipe:Action<HTMLElement, SwipeProps> = (node: HTMLElement, params: SwipeProps) => {
   let x: number;
   let startingX: number;
-  const elementWidth = node.clientWidth;
+  let elementWidth = node.clientWidth;
   let triggerReset = params?.triggerReset || false;
 
   /*Reference this here */
@@ -26,7 +26,29 @@ export const swipe:Action<HTMLElement, SwipeProps> = (node: HTMLElement, params:
     node.style.transform = `translate3d(${$coords.x}px, 0, 0)` /*Using normal css */
   })
 
-  node.addEventListener('mousedown', handleMouseDown);
+  if(isMobileBreakpoint()){
+    node.addEventListener('mousedown', handleMouseDown);
+  }
+  
+  function isMobileBreakpoint() {
+    const mediaQuery = window.matchMedia("(max-width: 1024px)");
+    if (mediaQuery.matches) {
+      return true;
+    }
+  }
+
+
+  // listen for browser resize
+  window.addEventListener("resize", () => {
+    if (isMobileBreakpoint()) {
+      node.addEventListener('mousedown', handleMouseDown);
+    } else {
+      node.removeEventListener('mousedown', handleMouseDown);
+    }
+
+    // update the card width
+    elementWidth = node.clientWidth;
+  })
 
   function resetCard(){
     coordinates.update(()=>{
