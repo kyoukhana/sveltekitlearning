@@ -96,7 +96,7 @@
 	</section>
 
 	<!--Swipe to reval-->
-	<div class="absolute inset-0 z-rowActions flex h-full w-full items-center justify-around">
+	<div class="swipe-revealed-actions">
 		<button class="action-button" on:click={() => {triggerReset = true;}}>
 		<Cancel width={32} height={32} />
 		Cancel
