@@ -1,326 +1,330 @@
 {
 	"clients": [
-		{
-			"address": "123 Street",
-			"city": "Somewhereville",
-			"clientStatus": "active",
-			"email": "compressed@example.com",
-			"id": "1",
-			"name": "Compressed.fm",
-			"province": "ON",
-			"postal": "L7K2S5",
-			"invoices": [
-				{
-					"client": {
-						"name": "Compressed.fm"
-					},
-					"createdAt": "2022-07-01",
-					"discount": 10,
-					"dueDate": "2022-07-31",
-					"id": "1",
-					"invoiceNumber": "12345",
-					"invoiceStatus": "draft",
-					"issueDate": "2022-07-01",
-					"lineItems": [
-						{
-							"amount": 100,
-							"description": "Podcast Episode #1",
-							"id": "1",
-							"quantity": 1
-						},
-						{
-							"amount": 200,
-							"description": "Podcast Episode #2",
-							"id": "2",
-							"quantity": 1
-						}
-					],
-					"notes": "**This** please.",
-					"subject": "Podcast Episodes",
-					"terms": "_Pay_ me."
-				},
-				{
-					"client": {
-						"name": "Compressed.fm"
-					},
-					"createdAt": "2022-07-01",
-					"discount": 0,
-					"dueDate": "2022-07-06",
-					"id": "2",
-					"invoiceNumber": "12352",
-					"invoiceStatus": "draft",
-					"issueDate": "2022-07-08",
-					"lineItems": [
-						{
-							"amount": 300,
-							"description": "Podcast Episode #1",
-							"id": "3",
-							"quantity": 1
-						},
-						{
-							"amount": 500,
-							"description": "Podcast Episode #2",
-							"id": "4",
-							"quantity": 1
-						}
-					],
-					"subject": "Podcast Episodes"
-				}
-			]
-		},
-		{
-			"address": "456 Drive",
-			"clientStatus": "active",
-			"city": "Nowhere",
-			"email": "everythingsvelte@test.com",
-			"id": "2",
-			"invoices": [
-				{
-					"client": {
-						"name": "Everything Svelte"
-					},
-					"createdAt": "2022-07-01",
-					"dueDate": "2022-10-06",
-					"id": "6",
-					"invoiceNumber": "12346",
-					"invoiceStatus": "paid",
-					"issueDate": "2022-07-01",
-					"lineItems": [
-						{
-							"amount": 1000,
-							"description": "Complete Tier",
-							"id": "5",
-							"quantity": 1
-						},
-						{
-							"amount": 5000,
-							"description": "Starter Tier",
-							"id": "6",
-							"quantity": 2
-						}
-					],
-					"subject": "Course Material"
-				}
-			],
-			"name": "Everything Svelte",
-			"province": "ON",
-			"postal": "L7K2S5"
-		},
-		{
-			"address": "789 Boulevard",
-			"clientStatus": "active",
-			"city": "Guelph",
-			"email": "zeal@test.com",
-			"id": "3",
-			"invoices": [
-				{
-					"client": {
-						"name": "ZEAL"
-					},
-					"createdAt": "2022-07-06",
-					"dueDate": "2022-10-06",
-					"id": "5",
-					"invoiceNumber": "12348",
-					"invoiceStatus": "sent",
-					"issueDate": "2022-07-06",
-					"lineItems": [
-						{
-							"amount": 1000000,
-							"description": "Website Development",
-							"id": "1",
-							"quantity": 1
-						}
-					],
-					"subject": "Website"
-				},
-				{
-					"client": {
-						"name": "ZEAL"
-					},
-					"createdAt": "2022-07-01",
-					"dueDate": "2022-06-06",
-					"id": "7",
-					"invoiceNumber": "12347",
-					"invoiceStatus": "sent",
-					"issueDate": "2022-07-01",
-					"lineItems": [
-						{
-							"amount": 5000000,
-							"description": "Website Design",
-							"id": "4",
-							"quantity": 1
-						}
-					],
-					"subject": "Website"
-				}
-			],
-			"name": "ZEAL",
-			"province": "ON",
-			"postal": "L7K2S5"
-		}
-	],
-	"invoices": [
-		{
+	  {
+		"city": "Somewhereville",
+		"clientStatus": "active",
+		"email": "compressed@example.com",
+		"id": "1",
+		"invoices": [
+		  {
 			"client": {
-				"city": "Somewhereville",
-				"clientStatus": "active",
-				"email": "compressed@example.com",
-				"id": "1",
-				"name": "Compressed.fm",
-				"province": "ON",
-				"postaleet": "123 Main Street",
-				"zip": "12345"
+			  "id": "1",
+			  "name": "Compressed.fm"
 			},
-			"createdAt": "2023-07-01",
+			"createdAt": "2022-07-01",
 			"discount": 10,
-			"dueDate": "2023-07-31",
+			"dueDate": "2022-07-31",
 			"id": "1",
 			"invoiceNumber": "12345",
 			"invoiceStatus": "draft",
-			"issueDate": "2023-07-01",
+			"issueDate": "2022-07-01",
 			"lineItems": [
-				{
-					"amount": 100,
-					"description": "Podcast Episode #1",
-					"id": "1",
-					"quantity": 1
-				},
-				{
-					"amount": 200,
-					"description": "Podcast Episode #2",
-					"id": "2",
-					"quantity": 1
-				}
+			  {
+				"amount": 100,
+				"description": "Podcast Episode #1",
+				"id": "1",
+				"quantity": 1
+			  },
+			  {
+				"amount": 200,
+				"description": "Podcast Episode #2",
+				"id": "2",
+				"quantity": 1
+			  }
 			],
 			"notes": "**This** please.",
 			"subject": "Podcast Episodes",
 			"terms": "_Pay_ me."
-		},
-		{
+		  },
+		  {
 			"client": {
-				"city": "Somewhereville",
-				"clientStatus": "active",
-				"email": "compressed@example.com",
-				"id": "1",
-				"name": "Compressed.fm",
-				"province": "ON",
-				"postaleet": "123 Main Street",
-				"zip": "12345"
+			  "id": "1",
+			  "name": "Compressed.fm"
 			},
-			"createdAt": "2023-07-01",
-			"dueDate": "2023-07-06",
+			"createdAt": "2022-07-01",
+			"discount": 0,
+			"dueDate": "2022-07-06",
 			"id": "2",
 			"invoiceNumber": "12352",
 			"invoiceStatus": "draft",
-			"issueDate": "2023-07-08",
+			"issueDate": "2022-07-08",
 			"lineItems": [
-				{
-					"amount": 300,
-					"description": "Podcast Episode #1",
-					"id": "3",
-					"quantity": 1
-				},
-				{
-					"amount": 500,
-					"description": "Podcast Episode #2",
-					"id": "4",
-					"quantity": 1
-				}
+			  {
+				"amount": 300,
+				"description": "Podcast Episode #1",
+				"id": "3",
+				"quantity": 1
+			  },
+			  {
+				"amount": 500,
+				"description": "Podcast Episode #2",
+				"id": "4",
+				"quantity": 1
+			  }
 			],
 			"subject": "Podcast Episodes"
-		},
-		{
+		  }
+		],
+		"name": "Compressed.fm",
+		"province": "TN",
+		"street": "123 Street",
+		"postal": "12345"
+	  },
+	  {
+		"city": "Nowhere",
+		"clientStatus": "archive",
+		"email": "everythingsvelte@test.com",
+		"id": "2",
+		"invoices": [
+		  {
 			"client": {
-				"city": "Nowhereville",
-				"email": "svelte@example.com",
-				"id": "2",
-				"name": "Everything Svelte",
-				"province": "FL",
-				"postaleet": "456 State Street",
-				"zip": "98765"
+			  "id": "2",
+			  "name": "Everything Svelte"
 			},
-			"createdAt": "2023-07-01",
-			"dueDate": "2023-10-06",
+			"createdAt": "2022-07-01",
+			"dueDate": "2022-10-06",
 			"id": "6",
 			"invoiceNumber": "12346",
 			"invoiceStatus": "paid",
-			"issueDate": "2023-07-01",
+			"issueDate": "2022-07-01",
 			"lineItems": [
-				{
-					"amount": 1000,
-					"description": "Complete Tier",
-					"id": "5",
-					"quantity": 1
-				},
-				{
-					"amount": 5000,
-					"description": "Starter Tier",
-					"id": "6",
-					"quantity": 2
-				}
+			  {
+				"amount": 1000,
+				"description": "Complete Tier",
+				"id": "5",
+				"quantity": 1
+			  },
+			  {
+				"amount": 5000,
+				"description": "Starter Tier",
+				"id": "6",
+				"quantity": 2
+			  }
 			],
 			"subject": "Course Material"
-		},
-		{
+		  }
+		],
+		"name": "Everything Svelte",
+		"province": "TN",
+		"street": "456 Drive",
+		"postal": "67890"
+	  },
+	  {
+		"city": "Anywhere",
+		"clientStatus": "active",
+		"email": "zeal@test.com",
+		"id": "3",
+		"invoices": [
+		  {
 			"client": {
-				"city": "Anywhereville",
-				"email": "zeal@example.com",
-				"id": "3",
-				"name": "ZEAL",
-				"province": "CA",
-				"postaleet": "789 Common Drive",
-				"zip": "56789"
+			  "id": "3",
+			  "name": "ZEAL"
 			},
-			"createdAt": "2023-07-01",
-			"dueDate": "2023-06-06",
-			"id": "7",
-			"invoiceNumber": "12347",
-			"invoiceStatus": "sent",
-			"issueDate": "2023-07-01",
-			"lineItems": [
-				{
-					"amount": 5000000,
-					"description": "Website Design",
-					"id": "4",
-					"quantity": 1
-				}
-			],
-			"subject": "Website"
-		},
-		{
-			"client": {
-				"city": "Anywhereville",
-				"email": "zeal@example.com",
-				"id": "3",
-				"name": "ZEAL",
-				"province": "CA",
-				"postaleet": "789 Common Drive",
-				"zip": "56789"
-			},
-			"createdAt": "2023-07-06",
-			"dueDate": "2023-10-06",
+			"createdAt": "2022-07-06",
+			"dueDate": "2022-10-06",
 			"id": "5",
 			"invoiceNumber": "12348",
 			"invoiceStatus": "sent",
-			"issueDate": "2023-07-06",
+			"issueDate": "2022-07-06",
 			"lineItems": [
-				{
-					"amount": 1000000,
-					"description": "Website Development",
-					"id": "1",
-					"quantity": 1
-				}
+			  {
+				"amount": 1000000,
+				"description": "Website Development",
+				"id": "1",
+				"quantity": 1
+			  }
 			],
 			"subject": "Website"
-		}
+		  },
+		  {
+			"client": {
+			  "name": "ZEAL"
+			},
+			"createdAt": "2022-07-01",
+			"dueDate": "2022-06-06",
+			"id": "7",
+			"invoiceNumber": "12347",
+			"invoiceStatus": "sent",
+			"issueDate": "2022-07-01",
+			"lineItems": [
+			  {
+				"amount": 5000000,
+				"description": "Website Design",
+				"id": "4",
+				"quantity": 1
+			  }
+			],
+			"subject": "Website"
+		  }
+		],
+		"name": "ZEAL",
+		"province": "TN",
+		"street": "789 Boulevard",
+		"postal": "87654"
+	  }
 	],
-
+	"invoices": [
+	  {
+		"client": {
+		  "city": "Somewhereville",
+		  "clientStatus": "active",
+		  "email": "compressed@example.com",
+		  "id": "1",
+		  "name": "Compressed.fm",
+		  "province": "TN",
+		  "street": "123 Main Street",
+		  "postal": "12345"
+		},
+		"createdAt": "2022-07-01",
+		"discount": 10,
+		"dueDate": "2022-07-31",
+		"id": "1",
+		"invoiceNumber": "12345",
+		"invoiceStatus": "draft",
+		"issueDate": "2022-07-01",
+		"lineItems": [
+		  {
+			"amount": 100,
+			"description": "Podcast Episode #1",
+			"id": "1",
+			"quantity": 1
+		  },
+		  {
+			"amount": 200,
+			"description": "Podcast Episode #2",
+			"id": "2",
+			"quantity": 1
+		  }
+		],
+		"notes": "**This** please.",
+		"subject": "Podcast Episodes",
+		"terms": "_Pay_ me."
+	  },
+	  {
+		"client": {
+		  "city": "Somewhereville",
+		  "clientStatus": "active",
+		  "email": "compressed@example.com",
+		  "id": "1",
+		  "name": "Compressed.fm",
+		  "province": "TN",
+		  "street": "123 Main Street",
+		  "postal": "12345"
+		},
+		"createdAt": "2022-07-01",
+		"discount": 0,
+		"dueDate": "2022-07-06",
+		"id": "2",
+		"invoiceNumber": "12352",
+		"invoiceStatus": "draft",
+		"issueDate": "2022-07-08",
+		"lineItems": [
+		  {
+			"amount": 300,
+			"description": "Podcast Episode #1",
+			"id": "3",
+			"quantity": 1
+		  },
+		  {
+			"amount": 500,
+			"description": "Podcast Episode #2",
+			"id": "4",
+			"quantity": 1
+		  }
+		],
+		"subject": "Podcast Episodes"
+	  },
+	  {
+		"client": {
+		  "city": "Nowhereville",
+		  "email": "svelte@example.com",
+		  "id": "2",
+		  "name": "Everything Svelte",
+		  "province": "FL",
+		  "street": "456 State Street",
+		  "postal": "98765"
+		},
+		"createdAt": "2022-07-01",
+		"dueDate": "2022-10-06",
+		"id": "6",
+		"invoiceNumber": "12346",
+		"invoiceStatus": "paid",
+		"issueDate": "2022-07-01",
+		"lineItems": [
+		  {
+			"amount": 1000,
+			"description": "Complete Tier",
+			"id": "5",
+			"quantity": 1
+		  },
+		  {
+			"amount": 5000,
+			"description": "Starter Tier",
+			"id": "6",
+			"quantity": 2
+		  }
+		],
+		"subject": "Course Material"
+	  },
+	  {
+		"client": {
+		  "city": "Anywhereville",
+		  "email": "zeal@example.com",
+		  "id": "3",
+		  "name": "ZEAL",
+		  "province": "CA",
+		  "street": "789 Common Drive",
+		  "postal": "56789"
+		},
+		"createdAt": "2022-07-01",
+		"dueDate": "2022-06-06",
+		"id": "7",
+		"invoiceNumber": "12347",
+		"invoiceStatus": "sent",
+		"issueDate": "2022-07-01",
+		"lineItems": [
+		  {
+			"amount": 5000000,
+			"description": "Website Design",
+			"id": "4",
+			"quantity": 1
+		  }
+		],
+		"subject": "Website"
+	  },
+	  {
+		"client": {
+		  "city": "Anywhereville",
+		  "email": "zeal@example.com",
+		  "id": "3",
+		  "name": "ZEAL",
+		  "province": "CA",
+		  "street": "789 Common Drive",
+		  "postal": "56789"
+		},
+		"createdAt": "2022-07-06",
+		"dueDate": "2022-10-06",
+		"id": "5",
+		"invoiceNumber": "12348",
+		"invoiceStatus": "sent",
+		"issueDate": "2022-07-06",
+		"lineItems": [
+		  {
+			"amount": 1000000,
+			"description": "Website Development",
+			"id": "1",
+			"quantity": 1
+		  }
+		],
+		"subject": "Website"
+	  }
+	],
 	"settings": {
-		"myName": "Kevin Yoko",
-		"email": "kyoko@gmail.com",
-		"address": "123 Main Street",
-		"city": "Toronto",
-		"province": "ON",
-		"postal": "L7K 2S5"
+	  "city": "Coolville",
+	  "email": "amy@example.com",
+	  "myName": "Amy Dutton",
+	  "province": "TN",
+	  "street": "123 Awesome Street",
+	  "postal": "54321"
 	}
-}
+  }
