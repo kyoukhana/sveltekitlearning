@@ -29,7 +29,7 @@ interface Client {
 	province?: string;
 	address?: string;
 	postal?: string;
-	invoices?: Invoices[];
+	invoice?: Invoice[];
 }
 
 interface Settings {
