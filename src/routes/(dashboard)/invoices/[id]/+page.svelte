@@ -93,11 +93,11 @@
 	<section class="col-span-6 sm:col-span-3 print:col-span-3">
 		<section class="label">Bill To:</section>
 		<p>
-			<strong>{data.invoice.client.name}</strong><br />
-			{data.invoice.client.email}<br />
-			{data.invoice.client.address}<br />
-			{data.invoice.client.city}, {data.invoice.client.province}
-			{data.invoice.client.postal}
+			{#if data.invoice.client.name}<strong>{data.invoice.client.name}</strong><br />{/if}
+			{#if data.invoice.client.email}{data.invoice.client.email}<br />{/if}
+			{#if data.invoice.client.address}{data.invoice.client.address}<br />{/if}
+			{#if data.invoice.client.city}{data.invoice.client.city}{/if}, {#if data.invoice.client.province}{data.invoice.client.province}{/if}
+			{#if data.invoice.client.postal}{data.invoice.client.postal}{/if}
 		</p>
 	</section>
 

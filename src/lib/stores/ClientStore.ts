@@ -32,7 +32,7 @@ export const addClient = async (clientToAdd: Client) => {
   const id = data[0].id;
 
   clients.update((prev: Client[]) => [...prev, { ...clientToAdd, clientStatus: "active", id }]);
-  return clientToAdd;
+  return {...clientToAdd, id};
 }
 
 
