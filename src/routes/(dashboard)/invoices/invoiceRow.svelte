@@ -39,9 +39,9 @@
 	};
 
 	const handleDelete = () => {
-		isModalShowing = true;
-		console.log('deleting');
-	};
+    isModalShowing = true;
+    isAdditionalMenuShowing = false;
+  };
 	const handleEdit = () => {
 		console.log('edit');
 
