@@ -7,9 +7,11 @@
 	export let client: client = {} as Client;
     import { addClient, updateClient } from '$lib/stores/ClientStore';
 	import { snackbar } from '$lib/stores/SnackbarStore';
+	import ConfirmDelete from './ConfirmDelete.svelte';
 
     export let formStatus: "create" | "edit" = "create";
 	export let closePanel: () => void = () => {};
+	let isModalShowing = false;
 
 	const handleSubmit = () => {
     if (formStatus === 'create') {
@@ -67,13 +69,15 @@
 	</div>
 
 	<div class="field col-span-3">
+		{#if formStatus === 'edit'}
 		<Button
 			label="Delete"
-			onClick={() => {}}
+			onClick={() => {isModalShowing = true}}
 			isAnimated={false}
 			style="textOnlyDestructive"
 			iconLeft={Trash}
 		/>
+		{/if}
 	</div>
 	<div class="field col-span-3 flex justify-end gap-x-5">
 		<Button label="Cancel" style="secondary" onClick={closePanel} isAnimated={false} />
@@ -86,3 +90,4 @@
 		</button>
 	</div>
 </form>
+<ConfirmDelete {client} {isModalShowing} on:close={()=>{isModalShowing=false}}></ConfirmDelete>

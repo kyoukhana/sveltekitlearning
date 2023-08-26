@@ -39,9 +39,10 @@
 	};
 
 	const handleDelete = () => {
-    isModalShowing = true;
-    isAdditionalMenuShowing = false;
-  };
+		isModalShowing = true;
+		isAdditionalMenuShowing = false;
+  	};
+	
 	const handleEdit = () => {
 		console.log('edit');
 

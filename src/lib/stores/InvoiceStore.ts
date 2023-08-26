@@ -147,6 +147,31 @@ export const deleteInvoice = async (invoiceToDelete: Invoice) => {
   return invoiceToDelete;
 }
 
+export const deleteClientInvoice = async(clientId:string):Promise<boolean> =>{
+  let isSuccessful:boolean = true;
+
+  //get all the invoices for a specific client
+
+    let { data, error } = await supabase
+    .from('invoice')
+    .select('id')
+    .eq('clientId',clientId);
+
+    if(error){
+      displayErrorMessage(error as Error);
+      isSuccessful = false;
+      return isSuccessful;
+    }
+
+
+    // delete the invoice
+    await Promise.all(data?.map(async (invoice) => {
+      await deleteInvoice(invoice as Invoice);
+    }))
+
+
+  return isSuccessful;
+}
 
 export const getInvoiceById = async (id: string) => {
   const { data, error } = await supabase
