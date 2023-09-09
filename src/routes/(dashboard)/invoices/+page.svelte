@@ -4,7 +4,6 @@
 	import CircledAmount from '$lib/components/CircledAmount.svelte';
 
 	import Search from '$lib/components/Search.svelte';
-	import Invitation from './invoiceRow.svelte';
 	import InvoiceRow from './invoiceRow.svelte';
 	import { centsToDollars, sumInvoices } from '$lib/utils/moneyHelpers';
 	import BlankState from './BlankState.svelte';
@@ -12,13 +11,33 @@
 	import Button from '$lib/components/Button.svelte';
 	import SlidePanel from '$lib/components/SlidePanel.svelte';
 	import InvoiceForm from './InvoiceForm.svelte';
+	import NoSearchResults from './NoSearchResults.svelte';
 
+	let invoiceList: Invoice[] = [];
 	let isInvoiceFormShowing: boolean = false;
 
-	onMount(() => {
-		loadInvoices();
-		console.log('----------------');
-		console.log($invoices);
+	const SearchInvoices = (event: CustomEvent) => {
+		const keywords = event.detail.searchTerms;
+		invoiceList = $invoices.filter((invoice) => {
+			return (
+				invoice?.client?.name?.toLowerCase().includes(keywords.toLowerCase()) ||
+				invoice?.invoiceNumber?.toLowerCase().includes(keywords.toLowerCase()) ||
+				invoice?.subject?.toLowerCase().includes(keywords.toLowerCase())
+			);
+		});
+	};
+
+	const ClearSearch = (event: CustomEvent) => {
+		if (event.detail.searchTerms === '') {
+			invoiceList = $invoices;
+		}
+	};
+
+
+	onMount(async () => {
+		await loadInvoices();
+		invoiceList = $invoices;
+		invoiceList = $invoices;
 	});
 </script>
 
@@ -31,7 +50,7 @@
 >
 	<!-- Search Field-->
 	{#if $invoices.length > 0}
-		<Search />
+		<Search on:search={SearchInvoices}  on:clear={ClearSearch}/>
 	{:else}
 		<!--Empty Div so keeps flexbox intact-->
 		<div />
@@ -52,19 +71,20 @@
 <!-- List of Invoices-->
 <section>
 	<!-- Invoices -->
-
 	{#if $invoices === null}
 		Loading...
 	{:else if $invoices.length <= 0}
 		<BlankState />
+	{:else if invoiceList.length <= 0}
+		<NoSearchResults />
 	{:else}
 		<InvoiceRowHeader className="text-daisyBush" />
-		<section class="flex flex-col-reverse">
-			{#each $invoices as invoice}
+		<div class="flex flex-col-reverse">
+			{#each invoiceList as invoice}
 				<InvoiceRow {invoice} />
 			{/each}
-		</section>
-		<CircledAmount label="Total" amount={`$${centsToDollars(sumInvoices($invoices))}`} />
+		</div>
+		<CircledAmount label="Total" amount={`$${centsToDollars(sumInvoices(invoiceList))}`} />
 	{/if}
 </section>
 
@@ -73,9 +93,8 @@
 	<SlidePanel
 		on:closePanel={() => {
 			isInvoiceFormShowing = false;
-		}}>
-		
-		<InvoiceForm closePanel={() => (isInvoiceFormShowing = false)} />
-		</SlidePanel
+		}}
 	>
+		<InvoiceForm closePanel={() => (isInvoiceFormShowing = false)} />
+	</SlidePanel>
 {/if}
