@@ -8,15 +8,36 @@
 	import BlankSlate from './BlankSlate.svelte';
 	import SlidePanel from '$lib/components/SlidePanel.svelte';
 	import ClientForm from './clientForm.svelte';
+	import NoSearchResults from './NoSearchResults.svelte';
 
 	let isClientFormShowing = false;
 
-  const closePanel = () =>{
-    isClientFormShowing = false;
-  }
+	const closePanel = () => {
+		isClientFormShowing = false;
+	};
 
-	onMount(() => {
-		loadClients();
+	let clientList: Client[] = [];
+
+	const SearchClients = (event: CustomEvent) => {
+		const keywords = event.detail.searchTerms;
+
+		clientList = $clients.filter((client) => {
+			return (
+				client.name?.toLowerCase().includes(keywords.toLowerCase()) ||
+				client.email?.toLowerCase().includes(keywords.toLowerCase())
+			);
+		});
+	};
+
+	const ClearSearch = (event: CustomEvent) => {
+		if (event.detail.searchTerms === '') {
+			clientList = $clients;
+		}
+	};
+
+	onMount(async () => {
+		await loadClients();
+		clientList = $clients;
 	});
 </script>
 
@@ -27,7 +48,7 @@
 >
 	<!-- search field -->
 	{#if $clients.length > 0}
-		<Search />
+		<Search on:search={SearchClients} on:clear={ClearSearch} />
 	{:else}
 		<div />
 	{/if}
@@ -37,7 +58,7 @@
 		<Button
 			label="+ Client"
 			onClick={() => {
-				 isClientFormShowing = true;
+				isClientFormShowing = true;
 			}}
 		/>
 	</div>
@@ -46,24 +67,26 @@
 <!-- clients -->
 <div>
 	{#if $clients === null}
-		Loading...
+	  Loading...
 	{:else if $clients.length <= 0}
-		<BlankSlate />
+	  <BlankState />
+	{:else if clientList.length <= 0}
+	  <NoSearchResults />
 	{:else}
-		<!--  client header row -->
-		<ClientRowHeader />
-
-		<!-- client rows -->
-		<div class="flex flex-col-reverse">
-			{#each $clients as client}
-				<ClientRow {client} />
-			{/each}
-		</div>
+	  <!--  client header row -->
+	  <ClientRowHeader />
+  
+	  <!-- client rows -->
+	  <div class="flex flex-col-reverse">
+		{#each clientList as client}
+		  <ClientRow {client} />
+		{/each}
+	  </div>
 	{/if}
-</div>
+  </div>
 
 {#if isClientFormShowing}
 	<SlidePanel on:closePanel={closePanel}>
-    <ClientForm closePanel={closePanel}/>
-  </SlidePanel>
+		<ClientForm {closePanel} />
+	</SlidePanel>
 {/if}

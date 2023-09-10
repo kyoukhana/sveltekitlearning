@@ -37,7 +37,6 @@
 	onMount(async () => {
 		await loadInvoices();
 		invoiceList = $invoices;
-		invoiceList = $invoices;
 	});
 </script>
 
